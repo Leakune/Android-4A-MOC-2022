@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authenticationFragment">
+
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragment"
+        android:label="AuthenticationFragment" />
+    <fragment
+        android:id="@+id/itinarySearchFragment"
+        android:name="com.ludovic.android_4a_moc_2022.fragments.ItinarySearchFragment"
+        android:label="ItinarySearchFragment" />
+    <fragment
+        android:id="@+id/itinaryResultsFragment"
+        android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryResultsFragment"
+        android:label="ItinaryResultsFragment" />
+    <fragment
+        android:id="@+id/userTripHistoryFragment"
+        android:name="com.ludovic.android_4a_moc_2022.fragments.UserTripHistoryFragment"
+        android:label="UserTripHistoryFragment" />
+    <fragment
+        android:id="@+id/itinaryMapFragment"
+        android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryMapFragment"
+        android:label="ItinaryMapFragment" />
+</navigation>
