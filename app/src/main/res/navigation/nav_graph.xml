@@ -7,11 +7,19 @@
     <fragment
         android:id="@+id/authenticationFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragment"
-        android:label="AuthenticationFragment" />
+        android:label="AuthenticationFragment" >
+        <action
+            android:id="@+id/action_authenticationFragment_to_itinarySearchFragment"
+            app:destination="@id/itinarySearchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itinarySearchFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinarySearchFragment"
-        android:label="ItinarySearchFragment" />
+        android:label="ItinarySearchFragment" >
+        <action
+            android:id="@+id/action_itinarySearchFragment_to_itinaryResultsFragment"
+            app:destination="@id/itinaryResultsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itinaryResultsFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryResultsFragment"
@@ -24,4 +32,8 @@
         android:id="@+id/itinaryMapFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryMapFragment"
         android:label="ItinaryMapFragment" />
+    <fragment
+        android:id="@+id/scoreFragment"
+        android:name="com.ludovic.android_4a_moc_2022.fragments.ScoreFragment"
+        android:label="ScoreFragment" />
 </navigation>

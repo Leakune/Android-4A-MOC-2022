@@ -3,12 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3285" />
+        <entry key="app/src/main/res/drawable/itinary_map_icon_24.xml" value="0.3285" />
+        <entry key="app/src/main/res/drawable/itinary_search_icon_24.xml" value="0.3285" />
+        <entry key="app/src/main/res/drawable/score_icon.xml" value="0.3285" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21670428893905191" />
-        <entry key="app/src/main/res/layout/authentication_fragment.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/authentication_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/itinary_map_fragment.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/itinary_results_fragment.xml" value="0.2776268115942029" />
+        <entry key="app/src/main/res/layout/itinary_search_fragment.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/route_results_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/route_search_fragment.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/score_fragment.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/user_trip_history.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/user_trip_history_fragment.xml" value="0.2776268115942029" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.37604166666666666" />
       </map>
     </option>
   </component>

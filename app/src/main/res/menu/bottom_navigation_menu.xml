@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itinarySearchFragment"
+        android:enabled="true"
+        android:icon="@drawable/itinary_search_icon_24"
+        android:title="@string/itinary_search_bottom_nav_item"/>
+    <item
+        android:id="@+id/itinaryMapFragment"
+        android:enabled="true"
+        android:icon="@drawable/itinary_map_icon_24"
+        android:title="@string/itinary_map_bottom_nav_item"/>
+    <item
+        android:id="@+id/scoreFragment"
+        android:enabled="true"
+        android:icon="@drawable/score_icon"
+        android:title="@string/score_bottom_nav_item"/>
+    <item
+        android:id="@+id/userTripHistoryFragment"
+        android:enabled="true"
+        android:icon="@drawable/user_trip_history_icon_24"
+        android:title="@string/user_trip_history_bottom_nav_item"/>
+</menu>
