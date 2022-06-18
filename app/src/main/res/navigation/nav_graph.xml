@@ -23,7 +23,11 @@
     <fragment
         android:id="@+id/itinaryResultsFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryResultsFragment"
-        android:label="ItinaryResultsFragment" />
+        android:label="ItinaryResultsFragment" >
+        <argument
+            android:name="search"
+            app:argType="com.ludovic.android_4a_moc_2022.models.Search" />
+    </fragment>
     <fragment
         android:id="@+id/userTripHistoryFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.UserTripHistoryFragment"

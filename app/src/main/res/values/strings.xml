@@ -6,4 +6,8 @@
     <string name="itinary_map_bottom_nav_item">Itinary map</string>
     <string name="score_bottom_nav_item">Score</string>
     <string name="user_trip_history_bottom_nav_item">History</string>
+    <string name="itinary_search_from">From</string>
+    <string name="itinary_search_to">To</string>
+    <string name="itinary_search_submit">Search</string>
+    <string name="itinary_search_list_empty">No result</string>
 </resources>
