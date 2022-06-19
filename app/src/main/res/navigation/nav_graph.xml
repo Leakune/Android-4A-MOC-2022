@@ -27,6 +27,9 @@
         <argument
             android:name="search"
             app:argType="com.ludovic.android_4a_moc_2022.models.Search" />
+        <action
+            android:id="@+id/action_itinaryResultsFragment_to_itinaryOneResultFragment"
+            app:destination="@id/itinaryOneResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/userTripHistoryFragment"
@@ -40,4 +43,11 @@
         android:id="@+id/scoreFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ScoreFragment"
         android:label="ScoreFragment" />
+    <fragment
+        android:id="@+id/itinaryOneResultFragment"
+        android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryOneResultFragment"
+        android:label="ItinaryOneResultFragment" >
+        <argument android:name="journey"
+            app:argType="com.ludovic.android_4a_moc_2022.models.Journey" />
+    </fragment>
 </navigation>

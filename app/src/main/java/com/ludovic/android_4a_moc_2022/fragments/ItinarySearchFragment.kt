@@ -73,7 +73,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                                             itinarySearchTo.setText(place.name)
                                             to = place
                                         }
-                                        itinarySearchRecyclerView.visibility = View.VISIBLE;
+                                        itinarySearchRecyclerView.visibility = View.GONE;
                                     }
                                 )
                             }

@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">Android-4A-MOC-2022</string>
 
+    <string name="mapbox_access_token">pk.eyJ1IjoicmFwaC1kIiwiYSI6ImNrd3l6cnl1ZjBkNzAycXB6cHFibTZoMDIifQ.xuMFOtLtdUX1V50wWwGHrw</string>
+
     <!-- BOTTOM NAVIGATION VIEW -->
     <string name="itinary_search_bottom_nav_item">Itinary search</string>
     <string name="itinary_map_bottom_nav_item">Itinary map</string>
     <string name="score_bottom_nav_item">Score</string>
     <string name="user_trip_history_bottom_nav_item">History</string>
+
     <string name="itinary_search_from">From</string>
     <string name="itinary_search_to">To</string>
     <string name="itinary_search_submit">Search</string>
