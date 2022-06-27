@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -28,6 +29,7 @@ import kotlinx.coroutines.withContext
 var currentSearchBar: String = "from"
 var from: Place? = null
 var to: Place? = null
+var clicked = false
 
 
 class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
@@ -44,10 +46,16 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         val itinarySearchFrom = view.findViewById<EditText>(R.id.itinary_search_from);
         val itinarySearchTo = view.findViewById<EditText>(R.id.itinary_search_to);
         val itinarySearchSubmit = view.findViewById<Button>(R.id.itinary_search_submit);
+        val itinarySearchRecyclerViewLayout = itinarySearchRecyclerView.layoutParams as ConstraintLayout.LayoutParams
+
 
         itinarySearchFrom.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
+                    if(clicked) {
+                        clicked = false
+                        return
+                    }
                     currentSearchBar = "from"
                     if (s.toString().isBlank()) {
                         itinarySearchRecyclerView.visibility = View.GONE;
@@ -66,6 +74,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                                 view.placeList.adapter = PlacesAdapter(
                                     places = fromGeocoding.places,
                                     PlacesAdapter.OnClickListener { place: Place ->
+                                        clicked = true
                                         if (currentSearchBar == "from") {
                                             itinarySearchFrom.setText(place.name)
                                             from = place
@@ -87,6 +96,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                     count: Int,
                     after: Int
                 ) {
+                    itinarySearchRecyclerViewLayout.topToBottom = itinarySearchFrom.id
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -98,6 +108,10 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         itinarySearchTo.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
+                    if(clicked) {
+                        clicked = false
+                        return
+                    }
                     currentSearchBar = "to"
                     if (s.toString().isBlank()) {
                         itinarySearchRecyclerView.visibility = View.GONE;
@@ -116,6 +130,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                                 view.placeList.adapter = PlacesAdapter(
                                     places = toGeocoding.places,
                                     PlacesAdapter.OnClickListener { place: Place ->
+                                        clicked = true
                                         if (currentSearchBar == "from") {
                                             itinarySearchFrom.setText(place.name)
                                             from = place
@@ -123,6 +138,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                                             itinarySearchTo.setText(place.name)
                                             to = place
                                         }
+                                        itinarySearchRecyclerView.visibility = View.GONE;
                                     }
                                 )
                             }
@@ -136,6 +152,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                     count: Int,
                     after: Int
                 ) {
+                    itinarySearchRecyclerViewLayout.topToBottom = itinarySearchTo.id
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

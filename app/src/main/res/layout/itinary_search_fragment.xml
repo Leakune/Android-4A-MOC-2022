@@ -3,74 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="16dp">
 
-
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/itinary_search_from_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/itinary_search_from"
+        />
+    <EditText
+        android:id="@+id/itinary_search_from"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:id="@+id/itinary_search_form"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/itinary_search_from"
-            />
-        <EditText
-            android:id="@+id/itinary_search_from"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/itinary_search_to" />
-        <AutoCompleteTextView
-            android:id="@+id/itinary_search_to"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/itinary_search_submit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/itinary_search_submit" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/itinary_search_from_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:paddingVertical="3dp"
+        android:autofillHints="text"
+        android:inputType="textAutoComplete" />
+    <TextView
+        android:id="@+id/itinary_search_to_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/itinary_search_from"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/itinary_search_to" />
+
+    <EditText
+        android:id="@+id/itinary_search_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/itinary_search_to_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:paddingVertical="3dp"
+        android:autofillHints="text"
+        android:inputType="textAutoComplete" />
+    <Button
+        android:id="@+id/itinary_search_submit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/itinary_search_to"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/itinary_search_submit" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/placeList"
+        android:translationZ="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/itinary_search_form"
+        android:background="@drawable/border_background"
+        app:layout_constraintTop_toBottomOf="@+id/itinary_search_from"
         >
+
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/itinary_search_list_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:paddingVertical="5dp"
+        android:background="@drawable/border_background"
+        android:textAlignment="center"
         android:text="@string/itinary_search_list_empty"
         android:textSize="20sp"
         android:textStyle="bold"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/itinary_search_form" />
+        app:layout_constraintTop_toTopOf="@+id/placeList" />
 
-    <Button
-        android:id="@+id/itinary_search_submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
