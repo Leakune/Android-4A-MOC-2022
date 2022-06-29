@@ -13,4 +13,7 @@
     <string name="itinary_search_to">To</string>
     <string name="itinary_search_submit">Search</string>
     <string name="itinary_search_list_empty">No result</string>
+
+    <string name="itinary_oneresult_duration">Duration </string>
+    <string name="itinary_oneresult_transfers">Transfers </string>
 </resources>

@@ -10,6 +10,7 @@ import kotlinx.android.parcel.Parcelize
 class Section(
     val type: String,
     val arrival_date_time: String,
+    val departure_date_time: String,
     val from: From,
     val to: To,
     val duration: Int,

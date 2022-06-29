@@ -138,7 +138,7 @@ class JourneyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
                 if (sec.publicTransportDetail.commercial_mode == "Metro") {
                     val metro = ImageView(myContext)
                     metro.layoutParams = LinearLayout.LayoutParams(80, 80)
-                    metro.setImageResource(logoMetro[sec.publicTransportDetail.code.toInt()])
+                    metro.setImageResource(logoMetro[sec.publicTransportDetail.code.toInt() - 1])
                     journeyCellTransportsList.addView(metro)
                 } else {
                     val transport = TextView(myContext)
@@ -152,10 +152,18 @@ class JourneyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
                 val walk = ImageView(myContext)
                 walk.setImageResource(R.drawable.ic_baseline_directions_walk_24)
                 journeyCellTransportsList.addView(walk)
-            } else if (sec.type == "waiting") {
-                val waiting = ImageView(myContext)
-                waiting.setImageResource(R.drawable.ic_baseline_timelapse_24)
-                journeyCellTransportsList.addView(waiting)
+            }
+//            else if (sec.type == "waiting") {
+//                val waiting = ImageView(myContext)
+//                waiting.setImageResource(R.drawable.ic_baseline_timelapse_24)
+//                journeyCellTransportsList.addView(waiting)
+//            }
+            else {
+                journeyCellTransportsList.removeView(
+                    journeyCellTransportsList.getChildAt(
+                        journeyCellTransportsList.childCount - 1
+                    )
+                )
             }
             val chevron = TextView(myContext)
             chevron.textSize = 15f
@@ -164,7 +172,7 @@ class JourneyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         }
         journeyCellTransportsList.removeView(
             journeyCellTransportsList.getChildAt(
-                journeyCellTransportsList.childCount
+                journeyCellTransportsList.childCount - 1
             )
         )
     }

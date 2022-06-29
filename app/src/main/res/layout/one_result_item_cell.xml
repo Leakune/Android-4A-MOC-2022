@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/section_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="16:51">
+
+        </TextView>
+        <TextView
+            android:id="@+id/section_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/grey"
+            android:paddingVertical="5dp"
+            android:text="20 min">
+
+        </TextView>
+        <TextView
+            android:id="@+id/section_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="17:11">
+
+        </TextView>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/section_line_color"
+        android:layout_width="4dp"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@color/grey" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/section_start_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paris saint lazare">
+
+        </TextView>
+        <TextView
+            android:id="@+id/section_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            android:text="">
+
+        </TextView>
+        <TextView
+            android:id="@+id/section_end_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paris Gare de yon">
+
+        </TextView>
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+
+
+</LinearLayout>
