@@ -36,6 +36,8 @@ import kotlinx.android.synthetic.main.itinary_search_fragment.view.*
 import kotlinx.android.synthetic.main.one_result_bottom_sheet.view.*
 import kotlinx.android.synthetic.main.one_result_item_cell.view.*
 import kotlinx.android.synthetic.main.place_item_cell.view.*
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 
 class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result) {
@@ -84,8 +86,10 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result) {
         val oneResultStartTime = view.findViewById<TextView>(R.id.oneResultStartTime)
         val oneResultEndTime = view.findViewById<TextView>(R.id.oneResultEndTime)
 
-        oneResultStartTime.text = "${journey.departure_date_time.substring(9, 11)}:${journey.departure_date_time.substring(11, 13)}"
-        oneResultEndTime.text = "${journey.arrival_date_time.substring(9, 11)}:${journey.arrival_date_time.substring(11, 13)}"
+        val format = SimpleDateFormat("HH:mm")
+
+        oneResultStartTime.text = format.format(journey.departure_date_time)
+        oneResultEndTime.text = format.format(journey.arrival_date_time)
         oneResultStartPlace.text = journey.sections.first().from.name
         oneResultEndPlace.text = journey.sections.last().to.name
 
@@ -231,8 +235,10 @@ class SectionsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         this.section = section
 
-        startTime.text = "${section.departure_date_time.substring(9, 11)}:${section.departure_date_time.substring(11, 13)}"
-        endTime.text = "${section.arrival_date_time.substring(9, 11)}:${section.arrival_date_time.substring(11, 13)}"
+        val format = SimpleDateFormat("HH:mm")
+
+        startTime.text = format.format(section.departure_date_time)
+        endTime.text = format.format(section.arrival_date_time)
         if (section.type != "waiting"){
             startPlace.text = section.from.name
             endPlace.text = section.to.name

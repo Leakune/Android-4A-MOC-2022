@@ -5,12 +5,13 @@ import com.google.gson.annotations.SerializedName
 import com.mapbox.geojson.GeoJson
 import com.mapbox.geojson.LineString
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 class Section(
     val type: String,
-    val arrival_date_time: String,
-    val departure_date_time: String,
+    val arrival_date_time: Date,
+    val departure_date_time: Date,
     val from: From,
     val to: To,
     val duration: Int,

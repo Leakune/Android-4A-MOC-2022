@@ -1,5 +1,6 @@
 package com.ludovic.android_4a_moc_2022.API
 
+import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.ludovic.android_4a_moc_2022.models.Journey
@@ -15,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 interface APIJourney {
     // get album par artiste
     @Headers(
-        "Authorization:3b036afe-0110-4202-b9ed-99718476c2e0"
+        "Authorization:1572361b-25ab-4464-8f3f-d282548d31f9"
     )
     @GET("journeys")
     fun getJourneys(
@@ -28,8 +29,12 @@ interface APIJourney {
 
 object NetworkJourney {
     val api = Retrofit.Builder()
-        .baseUrl("https://api.navitia.io/v1/coverage/sandbox/")
-        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl("https://api.navitia.io/v1/coverage/fr-idf/")
+        .addConverterFactory(GsonConverterFactory.create(
+            GsonBuilder()
+                .setDateFormat("yyyyMMdd'T'HHmmss")
+                .create()
+        ))
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
         .create(APIJourney::class.java)
