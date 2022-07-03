@@ -11,10 +11,6 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,14 +19,7 @@ import com.ludovic.android_4a_moc_2022.R
 import com.ludovic.android_4a_moc_2022.models.Place
 import kotlinx.android.synthetic.main.itinary_search_fragment.view.*
 import kotlinx.android.synthetic.main.place_item_cell.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.lang.Exception
+import kotlinx.coroutines.*
 
 var currentSearchBar: String = "from"
 var from: Place? = null
@@ -41,7 +30,9 @@ var clicked = false
 class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
 
     val geocodingViewModel: GeocodingViewModel by viewModels()
+    val journeyViewModel: JourneyViewModel by viewModels()
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,7 +44,33 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         val itinarySearchFrom = view.findViewById<EditText>(R.id.itinary_search_from);
         val itinarySearchTo = view.findViewById<EditText>(R.id.itinary_search_to);
         val itinarySearchSubmit = view.findViewById<Button>(R.id.itinary_search_submit);
-        val itinarySearchRecyclerViewLayout = itinarySearchRecyclerView.layoutParams as ConstraintLayout.LayoutParams
+        val itinarySearchRecyclerViewLayout =
+            itinarySearchRecyclerView.layoutParams as ConstraintLayout.LayoutParams
+
+
+        journeyViewModel.journeyState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is LoadingJourneyState -> {
+                    val spinner = ProgressBar(requireContext())
+                }
+                is EmptyJourneyState -> {
+
+                }
+                is SuccessJourneyState -> {
+                    val action =
+                        ItinarySearchFragmentDirections.actionItinarySearchFragmentToItinaryResultsFragment(
+                            state.search
+                        );
+
+                    view.findNavController().navigate(action)
+                }
+                is ErrorJourneyState -> {
+                    Log.d("logs", "Error")
+                    state.ex
+                }
+                else -> {}
+            }
+        }
 
         geocodingViewModel.geocodingState.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -77,6 +94,9 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                                 itinarySearchTo.setText(place.name)
                                 to = place
                             }
+                            if (from != null && to != null) {
+                                itinarySearchSubmit.isEnabled = true
+                            }
                             itinarySearchRecyclerView.visibility = View.GONE;
                         }
                     )
@@ -93,7 +113,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         itinarySearchFrom.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
-                    if(clicked) {
+                    if (clicked) {
                         clicked = false
                         return
                     }
@@ -124,7 +144,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         itinarySearchTo.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
-                    if(clicked) {
+                    if (clicked) {
                         clicked = false
                         return
                     }
@@ -134,32 +154,10 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                         itinarySearchRecyclerEmpty.visibility = View.VISIBLE
                         return
                     }
-                    GlobalScope.launch(Dispatchers.Default) {
-                        val toGeocoding = NetworkGeocoding.api.getPlaces(s.toString()).await()
-                        withContext(Dispatchers.Main) {
-                            if (toGeocoding.places.isNullOrEmpty()) {
-                                itinarySearchRecyclerView.visibility = View.GONE;
-                                itinarySearchRecyclerEmpty.visibility = View.VISIBLE
-                            } else {
-                                itinarySearchRecyclerView.visibility = View.VISIBLE;
-                                itinarySearchRecyclerEmpty.visibility = View.GONE
-                                view.placeList.adapter = PlacesAdapter(
-                                    places = toGeocoding.places,
-                                    PlacesAdapter.OnClickListener { place: Place ->
-                                        clicked = true
-                                        if (currentSearchBar == "from") {
-                                            itinarySearchFrom.setText(place.name)
-                                            from = place
-                                        } else {
-                                            itinarySearchTo.setText(place.name)
-                                            to = place
-                                        }
-                                        itinarySearchRecyclerView.visibility = View.GONE;
-                                    }
-                                )
-                            }
-                        }
+                    if (from != null && to != null) {
+                        itinarySearchSubmit.isEnabled = true
                     }
+                    geocodingViewModel.fetchGeocoding(s.toString())
                 }
 
                 override fun beforeTextChanged(
@@ -180,26 +178,12 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
 
         itinarySearchSubmit.setOnClickListener {
             if (from != null && to != null) {
-                GlobalScope.launch(Dispatchers.Default) {
-                    val journeys = NetworkJourney.api.getJourneys(
-                        from = from!!.getCoords(),
-                        to = to!!.getCoords()
-                    ).await()
-                    withContext(Dispatchers.Main) {
-                      val action =
-                          ItinarySearchFragmentDirections.actionItinarySearchFragmentToItinaryResultsFragment(journeys);
-
-                        view.findNavController().navigate(action)
-                    }
-                }
+                journeyViewModel.fetchJourney(
+                    from = from!!.getCoords(),
+                    to = to!!.getCoords()
+                )
             }
         }
-//        val tmpBtn = view.findViewById<Button>(R.id.itinary_search_submit_button);
-//        tmpBtn.setOnClickListener {
-//            val action =
-//                ItinarySearchFragmentDirections.actionItinarySearchFragmentToItinaryResultsFragment();
-//            view.findNavController().navigate(action)
-//        }
     }
 }
 
@@ -253,80 +237,3 @@ class PlaceViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     }
 
 }
-
-
-
-
-
-
-
-
-
-//
-//
-//sealed class ProductState
-//object LoadingProductState : ProductState()
-//data class SuccessProductState(val product: String) : ProductState()
-//data class ErrorProductState(val ex: Exception) : ProductState()
-//
-//
-//object ProductRepository {
-//
-//    suspend fun findProduct(barcode: String): Flow<ProductState> {
-//        return flow {
-//            emit(LoadingProductState)
-//
-//            // TODO Appeler la requête
-//
-//            try {
-//                emit(SuccessProductState("OK"))
-//            } catch (e: Exception) {
-//                emit(ErrorProductState(e))
-//            }
-//        }.flowOn(Dispatchers.Default)
-//    }
-//
-//}
-//
-//class ProductDetailsViewModel : ViewModel() {
-//
-//    private val _productState = MutableLiveData<ProductState>()
-//    val productState : LiveData<ProductState> = _productState
-//
-//    fun fetchProduct() {
-//        viewModelScope.launch {
-//            ProductRepository.findProduct("1234567890").collect { state ->
-//                _productState.value = state
-//            }
-//        }
-//    }
-//
-//}
-//
-//
-//
-//class ProductFragment : Fragment() {
-//
-//    val viewModel: ProductDetailsViewModel by viewModels()
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        viewModel.fetchProduct()
-//
-//        viewModel.productState.observe(viewLifecycleOwner) { state ->
-//            when (state) {
-//                is LoadingProductState -> {
-//
-//                }
-//                is SuccessProductState -> {
-//                    state.product
-//                }
-//                is ErrorProductState -> {
-//                    state.ex
-//                }
-//            }
-//        }
-//    }
-//
-//}
