@@ -22,4 +22,7 @@
     <string name="authentification_password">Password</string>
     <string name="authentification_submit">Submit</string>
 
+    <string name="walk">Walk</string>
+    <string name="wait">Wait in station</string>
+
 </resources>
