@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:text="19:45"
             android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -30,6 +32,8 @@
             android:layout_height="wrap_content"
             android:text="20:30"
             android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/journeyCellTitle"
             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -60,17 +64,39 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintStart_toEndOf="@+id/journeyCellTime"
+            android:overScrollMode="always"
             android:gravity="center_horizontal">
 
         </LinearLayout>
-        <TextView
-            android:id="@+id/journeyCellDuration"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Durée : 45min"
-            android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@+id/journeyCellTitle"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/duration"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@+id/journeyCellTitle"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@+id/journeyCellTitle"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                android:id="@+id/journeyCellDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/journeyCellTitle"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 

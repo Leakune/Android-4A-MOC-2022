@@ -1,5 +1,6 @@
 package com.ludovic.android_4a_moc_2022
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
@@ -37,8 +38,22 @@ fun secToTime(secs: Int) : String {
 fun transportLogo(section: Section): TextView {
     val logoText = TextView(myContext)
     val logoBackground = GradientDrawable()
+
+    logoBackground.setColor(Color.parseColor("#${section.publicTransportDetail.color}"))
+    logoText.typeface = Typeface.DEFAULT_BOLD;
+    logoText.gravity = Gravity.CENTER
+    logoText.text = section.publicTransportDetail.code
+    logoText.setTextColor(Color.parseColor("#${section.publicTransportDetail.text_color}"))
+
     when (section.publicTransportDetail.commercial_mode) {
-        "Métro", "RER" -> {
+        "Tram" -> {
+            logoBackground.setColor(Color.parseColor("#FFFFFF"))
+            logoBackground.setStroke(5, Color.parseColor("#${section.publicTransportDetail.color}"))
+            logoBackground.cornerRadius = 300F;
+            logoText.width = 80
+            logoText.height = 80
+        }
+        "Métro" -> {
             logoBackground.cornerRadius = 300F;
             logoText.width = 80
             logoText.height = 80
@@ -47,7 +62,7 @@ fun transportLogo(section: Section): TextView {
             logoText.width = 120
             logoText.height = 60
         }
-        "Train Transilien" -> {
+        "Train Transilien", "RER" -> {
             logoBackground.cornerRadius = 15F;
             logoText.width = 80
             logoText.height = 80
@@ -62,20 +77,19 @@ fun transportLogo(section: Section): TextView {
             logoText.height = 80
         }
     }
-    logoText.typeface = Typeface.DEFAULT_BOLD;
-    logoText.gravity = Gravity.CENTER
     logoText.background = logoBackground
-    logoText.text = section.publicTransportDetail.code
-    logoText.setTextColor(Color.parseColor("#${section.publicTransportDetail.text_color}"))
-    logoBackground.setColor(Color.parseColor("#${section.publicTransportDetail.color}"))
     return logoText
 }
+
+var r: Resources? = null
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        r = resources;
 
         //init navController
         val navHostFragment =

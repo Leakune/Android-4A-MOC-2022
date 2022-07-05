@@ -35,9 +35,6 @@ class ItinaryResultsFragment : Fragment(R.layout.itinary_results_fragment) {
         myContext = requireContext()
         val searchs: Search = args.search
 
-        val itinaryResultsCount = view.findViewById<TextView>(R.id.itinary_results_count);
-
-        itinaryResultsCount.text = searchs.journeys.size.toString() + " Results finded"
         view.journeyList.layoutManager = LinearLayoutManager(requireContext());
 
         view.journeyList.adapter = JourneyAdapter(
@@ -112,7 +109,7 @@ class JourneyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         val format = SimpleDateFormat("HH:mm")
 
-        journeyCellDuration.text = "Durée : " + timeString
+        journeyCellDuration.text = timeString
         journeyCellTimeStart.text = format.format(journey.departure_date_time)
         journeyCellTimeEnd.text = format.format(journey.arrival_date_time)
 

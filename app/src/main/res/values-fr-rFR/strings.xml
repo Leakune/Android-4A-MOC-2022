@@ -22,7 +22,8 @@
     <string name="authentification_password">Mot de passe</string>
     <string name="authentification_submit">Valider</string>
 
+    <string name="duration">Durée</string>
     <string name="walk">Marche</string>
     <string name="wait">Attente en gare</string>
-
+    <string name="toward">Vers</string>
 </resources>
