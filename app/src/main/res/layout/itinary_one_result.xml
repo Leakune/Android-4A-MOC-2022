@@ -4,16 +4,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.mapbox.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:mapbox="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/mapView"
+    <fragment
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/googleMap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        mapbox:mapbox_cameraTargetLat="48.85"
-        mapbox:mapbox_cameraTargetLng="2.344"
-        mapbox:mapbox_cameraZoom="10.0"
-    />
+        android:layout_height="match_parent"/>
+
 
 
     <include layout="@layout/one_result_bottom_sheet" />

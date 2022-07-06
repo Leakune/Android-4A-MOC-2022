@@ -4,14 +4,12 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -21,15 +19,16 @@ import com.ludovic.android_4a_moc_2022.models.Section
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.ceil
 
-fun secToTime(secs: Int) : String {
+
+fun secToTime(secs: Int): String {
     val roundedSecs = (ceil((secs / 60).toDouble()) * 60).toInt()
     var res = ""
     val h: Int = roundedSecs / 3600
     val m: Int = (roundedSecs % 3600) / 60
-    if (h>0){
+    if (h > 0) {
         res += h.toString() + "h"
     }
-    if (m>0){
+    if (m > 0) {
         res += m.toString() + "m"
     }
     return res;
@@ -91,6 +90,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         r = resources;
 
+
         //init navController
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         // hide bottom nav at authentication page
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.authenticationFragment) {
+            if (destination.id == R.id.authenticationFragment) {
                 toolbar.visibility = View.GONE
                 bottomNavigationView.visibility = View.GONE
             } else {
@@ -123,6 +123,27 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+//    override fun onMapReady(googleMap: GoogleMap) {
+//
+//        Log.d("mytag", "onMapReady")
+//
+//        googleMap.setMinZoomPreference(6.0f)
+//        googleMap.setMaxZoomPreference(14.0f)
+//
+//        val australiaBounds = LatLngBounds(
+//            LatLng((-44.0), 113.0),  // SW bounds
+//            LatLng((-10.0), 154.0) // NE bounds
+//        )
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(australiaBounds, 0))
+//
+//
+//        googleMap.addMarker(
+//            MarkerOptions()
+//                .position(LatLng(0.0, 0.0))
+//                .title("Marker")
+//        )
+//
+//    }
 
 
 }

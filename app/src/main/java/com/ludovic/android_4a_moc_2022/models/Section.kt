@@ -2,8 +2,6 @@ package com.ludovic.android_4a_moc_2022.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.mapbox.geojson.GeoJson
-import com.mapbox.geojson.LineString
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -18,6 +16,7 @@ class Section(
     val co2_emission: Co2Emission,
     @SerializedName("display_informations")
     val publicTransportDetail : PublicTransportDetail,
+    @SerializedName("geojson")
     val geoJson: GeoJson
 ) : Parcelable {
 }

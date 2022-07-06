@@ -1,17 +1,13 @@
 package com.ludovic.android_4a_moc_2022.fragments
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
-import android.provider.Settings.Global.getString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -98,7 +94,6 @@ class JourneyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     }
 
     fun updateItem(journey: Journey) {
-        Log.d("journey", journey.toString())
         this.journey = journey
 
         val hours = journey.durations.total / 3600;
@@ -113,15 +108,20 @@ class JourneyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         journeyCellTimeStart.text = format.format(journey.departure_date_time)
         journeyCellTimeEnd.text = format.format(journey.arrival_date_time)
 
-        for (sec in journey.sections) {
-            Log.d("mytag", sec.type)
+        var count = 0
+        for ( sec in journey.sections) {
+            if(count == 7){
+                break
+            }
             when (sec.type) {
                 "public_transport" -> {
+                    count+=1
                     val logo = transportLogo(sec)
                     journeyCellTransportsList.addView(logo)
 
                 }
                 "street_network", "transfer" -> {
+                    count+=1
                     val logo = ImageView(myContext)
                     logo.setImageResource(R.drawable.ic_baseline_directions_walk_24)
                     journeyCellTransportsList.addView(logo)
@@ -144,6 +144,11 @@ class JourneyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
                 journeyCellTransportsList.childCount - 1
             )
         )
+        if(count == 7) {
+            val logo = ImageView(myContext)
+            logo.setImageResource(R.drawable.ic_baseline_more_horiz_24)
+            journeyCellTransportsList.addView(logo)
+        }
     }
 
 }

@@ -1,9 +1,11 @@
 package com.ludovic.android_4a_moc_2022.fragments
 
-import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,31 +13,47 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ludovic.android_4a_moc_2022.*
 import com.ludovic.android_4a_moc_2022.models.Journey
 import com.ludovic.android_4a_moc_2022.models.Section
 import kotlinx.android.synthetic.main.one_result_bottom_sheet.view.*
 import kotlinx.android.synthetic.main.one_result_item_cell.view.*
-import java.nio.file.Files.walk
 import java.text.SimpleDateFormat
 
 
 var mainActivity: MainActivity? = null
 
-class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result) {
+class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapReadyCallback {
     private val args: ItinaryOneResultFragmentArgs by navArgs()
+    private lateinit var mMap: GoogleMap
+    lateinit var journey: Journey
+    var mapFragment: SupportMapFragment? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val rootView = super.onCreateView(inflater, container, savedInstanceState)
+        mapFragment = childFragmentManager.findFragmentById(R.id.googleMap) as? SupportMapFragment
+        mapFragment?.getMapAsync(this)
+        return rootView
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mainActivity = (activity as MainActivity)
         super.onViewCreated(view, savedInstanceState)
-        val journey: Journey = args.journey
+        journey = args.journey
 
         view.oneResultSectionList.layoutManager = LinearLayoutManager(requireContext())
 
@@ -67,7 +85,70 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result) {
             sections = journey.sections
         )
 
+        Log.d("mytag", "onViewCreated")
 
+
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        Log.d("mytag", "onMapReady")
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(48.85, 2.344), 9f))
+
+        mMap = googleMap
+        googleMap.addMarker(
+            MarkerOptions()
+                .position(LatLng(0.0, 0.0))
+        )
+
+        for (section in journey.sections) {
+            if (section.geoJson == null) {
+                continue
+            }
+
+            val lineCaps = ContextCompat.getDrawable(
+                myContext!!,
+                R.drawable.background_round
+            )?.constantState?.newDrawable()
+                ?.mutate()!!
+
+            val option = PolylineOptions()
+            option.width(15.0f)
+            option.startCap(RoundCap())
+            option.endCap(RoundCap())
+            option.geodesic(true)
+            if (section.publicTransportDetail != null) {
+                option.color(Color.parseColor("#${section.publicTransportDetail.color}"))
+                lineCaps.setTint(Color.parseColor("#${section.publicTransportDetail.color}"))
+            } else {
+                option.color(ContextCompat.getColor(myContext!!, R.color.grey))
+                lineCaps.setTint(ContextCompat.getColor(myContext!!, R.color.grey))
+            }
+
+            val canvas = Canvas()
+            val bitmap = Bitmap.createBitmap(40, 40, Bitmap.Config.ARGB_8888)
+            canvas.setBitmap(bitmap)
+            lineCaps.setBounds(0, 0, 40, 40)
+            lineCaps.draw(canvas)
+            val markerIcon = BitmapDescriptorFactory.fromBitmap(bitmap)
+
+            if (section.geoJson.type == "LineString") {
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(
+                            LatLng(
+                                section.geoJson.coordinates[0][1].toDouble(),
+                                section.geoJson.coordinates[0][0].toDouble()
+                            )
+                        )
+                        .anchor(0.5f, 0.5f)
+                        .icon(markerIcon)
+                )
+                for (coord in section.geoJson.coordinates) {
+                    option.add(LatLng(coord[1].toDouble(), coord[0].toDouble()))
+                }
+            }
+            googleMap.addPolyline(option)
+        }
     }
 }
 
