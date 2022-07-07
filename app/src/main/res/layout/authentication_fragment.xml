@@ -2,66 +2,101 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@drawable/bg_authentification"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/authentication_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/authentification_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/login_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/authentification_login"
-        app:layout_constraintTop_toBottomOf="@+id/authentication_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lav_actionBar"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/map"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:id="@+id/authentication_title"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/white"
+            android:text="@string/authentification_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+             />
+
+        <TextView
+            android:id="@+id/login_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/authentification_login"
+            android:textColor="@color/white"
+            android:layout_gravity="left"
+            android:paddingLeft="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/authentication_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+            <EditText
+                android:id="@+id/login_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/login_label"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="left"
+
+            android:paddingLeft="20dp"
+            android:text="@string/authentification_password"
+            app:layout_constraintTop_toBottomOf="@+id/login_text_field"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
 
         <EditText
-            android:id="@+id/login_text_field"
+            android:id="@+id/password_text_field"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/login_label"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/password_label"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:inputType="textPassword"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <Button
+            android:id="@+id/connection_submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/authentification_submit"
+            android:backgroundTint="@color/blue_lagon"
+            app:layout_constraintTop_toBottomOf="@+id/password_text_field"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/password_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/authentification_password"
-        app:layout_constraintTop_toBottomOf="@+id/login_text_field"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <EditText
-        android:id="@+id/password_text_field"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/password_label"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <Button
-        android:id="@+id/connection_submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/authentification_submit"
-        app:layout_constraintTop_toBottomOf="@+id/password_text_field"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+            />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
