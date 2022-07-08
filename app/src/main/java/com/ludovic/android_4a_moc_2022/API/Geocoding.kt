@@ -81,4 +81,8 @@ class GeocodingViewModel : ViewModel() {
         }
     }
 
+    fun reset() {
+        _geocodingState.value = null
+    }
+
 }

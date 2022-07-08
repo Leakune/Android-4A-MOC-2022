@@ -32,6 +32,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
     val geocodingViewModel: GeocodingViewModel by viewModels()
     val journeyViewModel: JourneyViewModel by viewModels()
 
+
     @OptIn(DelicateCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,7 +52,8 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         journeyViewModel.journeyState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LoadingJourneyState -> {
-                    val spinner = ProgressBar(requireContext())
+                    itinarySearchSubmit.isEnabled = false
+                    itinarySearchSubmit.text = "Loading"
                 }
                 is EmptyJourneyState -> {
 
@@ -61,7 +63,8 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                         ItinarySearchFragmentDirections.actionItinarySearchFragmentToItinaryResultsFragment(
                             state.search
                         );
-
+                    journeyViewModel.reset()
+                    geocodingViewModel.reset()
                     view.findNavController().navigate(action)
                 }
                 is ErrorJourneyState -> {
@@ -132,7 +135,6 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                     count: Int,
                     after: Int
                 ) {
-                    itinarySearchRecyclerViewLayout.topToBottom = itinarySearchFrom.id
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -166,7 +168,6 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                     count: Int,
                     after: Int
                 ) {
-                    itinarySearchRecyclerViewLayout.topToBottom = itinarySearchTo.id
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

@@ -87,4 +87,8 @@ class JourneyViewModel : ViewModel() {
         }
     }
 
+    fun reset() {
+        _journeyState.value = null
+    }
+
 }
