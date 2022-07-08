@@ -16,9 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Android4AMOC2022">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCsfVQNT0Dg4m9xMxaLLap1VHk8kz3HHLI" />
 
         <meta-data
             android:name="com.google.android.gms.version"

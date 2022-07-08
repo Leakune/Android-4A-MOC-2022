@@ -26,10 +26,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "GOOGLE_API_KEY", "\"377583526022-gqehmbu0ts5vj8jc0nafv5q5jf2sjd9p.apps.googleusercontent.com\"")
-        }
-        debug {
-            buildConfigField("String", "GOOGLE_API_KEY", "\"377583526022-gqehmbu0ts5vj8jc0nafv5q5jf2sjd9p.apps.googleusercontent.com\"")
         }
     }
     compileOptions {

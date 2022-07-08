@@ -9,6 +9,20 @@
     <string name="score_bottom_nav_item">Point</string>
     <string name="user_trip_history_bottom_nav_item">Historique</string>
 
+    <!--  AUTHENTICATION VIEW  -->
+    <string name="authentification_title">Page d\'authentification</string>
+    <string name="authentication_login">Login</string>
+    <string name="authentication_password">Mot de passe</string>
+    <string name="authentication_confirm_password">Confirmer mot de passe</string>
+    <string name="authentication_submit">Valider</string>
+    <string name="error_credentials_null">Tous les champs doivent être remplis</string>
+    <string name="authentication_create_account">Créer un nouveau compte</string>
+    <string name="authentication_signin">Se connecter avec un compte existant</string>
+    <string name="authentication_error_credentials">Erreur: les identifiants ne pas correctes</string>
+    <string name="authentication_error_passwords">Erreur: les mots de passes ne sont pas identiques</string>
+    <string name="authentication_error_google">Erreur de connexion avec Google</string>
+    <string name="authentication_error_create_account">Erreur de création du compte: %1$s</string>
+
     <string name="itinary_search_from">De</string>
     <string name="itinary_search_to">À</string>
     <string name="itinary_search_submit">Chercher</string>
@@ -17,10 +31,6 @@
     <string name="itinary_oneresult_duration">Durée </string>
     <string name="itinary_oneresult_transfers">Transferts </string>
 
-    <string name="authentification_title">page d\'authentification</string>
-    <string name="authentification_login">Connexion</string>
-    <string name="authentification_password">Mot de passe</string>
-    <string name="authentification_submit">Valider</string>
 
     <string name="duration">Durée</string>
     <string name="walk">Marche</string>

@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -19,6 +20,8 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.ludovic.android_4a_moc_2022.fragments.myContext
 import com.ludovic.android_4a_moc_2022.models.Section
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,7 +39,7 @@ fun secToTime(secs: Int): String {
     if (m > 0) {
         res += m.toString() + "m"
     }
-    return res;
+    return res
 }
 
 fun transportLogo(section: Section): TextView {
@@ -44,7 +47,7 @@ fun transportLogo(section: Section): TextView {
     val logoBackground = GradientDrawable()
 
     logoBackground.setColor(Color.parseColor("#${section.publicTransportDetail.color}"))
-    logoText.typeface = Typeface.DEFAULT_BOLD;
+    logoText.typeface = Typeface.DEFAULT_BOLD
     logoText.gravity = Gravity.CENTER
     logoText.text = section.publicTransportDetail.code
     logoText.setTextColor(Color.parseColor("#${section.publicTransportDetail.text_color}"))
@@ -53,12 +56,12 @@ fun transportLogo(section: Section): TextView {
         "Tram" -> {
             logoBackground.setColor(Color.parseColor("#FFFFFF"))
             logoBackground.setStroke(5, Color.parseColor("#${section.publicTransportDetail.color}"))
-            logoBackground.cornerRadius = 300F;
+            logoBackground.cornerRadius = 300F
             logoText.width = 80
             logoText.height = 80
         }
         "Métro" -> {
-            logoBackground.cornerRadius = 300F;
+            logoBackground.cornerRadius = 300F
             logoText.width = 80
             logoText.height = 80
         }
@@ -67,12 +70,12 @@ fun transportLogo(section: Section): TextView {
             logoText.height = 60
         }
         "Train Transilien", "RER" -> {
-            logoBackground.cornerRadius = 15F;
+            logoBackground.cornerRadius = 15F
             logoText.width = 80
             logoText.height = 80
         }
         "TER" -> {
-            logoBackground.cornerRadius = 15F;
+            logoBackground.cornerRadius = 15F
             logoText.width = 120
             logoText.height = 80
         }
@@ -89,16 +92,12 @@ var r: Resources? = null
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
-    private lateinit var oneTapClient: SignInClient
-    private lateinit var signInRequest: BeginSignInRequest
-
-    private val REQ_ONE_TAP = 2  // Can be any integer unique to the Activity
-    private var showOneTapUI = true
+    val auth = Firebase.auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        r = resources;
+        r = resources
 
 
         //init navController
@@ -107,8 +106,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController = navHostFragment.navController
 
         // toolbar configuration
+        toolbar.contentInsetEndWithActions
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController)
+
+        val toolbarLogoutBtn = findViewById<ImageButton>(R.id.logout)
+        toolbarLogoutBtn.setOnClickListener {
+            auth.signOut()
+        }
 
         //bottom nav configuration
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -125,7 +130,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
         }
 
-        configureFirebaseAuthGoogle();
+        //configureFirebaseAuthGoogle();
 
 
     }
@@ -135,55 +140,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    /*fun configureFirebaseAuthGoogle(){
-        oneTapClient = Identity.getSignInClient(this)
-        signInRequest = BeginSignInRequest.builder()
-            .setPasswordRequestOptions(
-                BeginSignInRequest.PasswordRequestOptions.builder()
-                    .setSupported(true)
-                    .build())
-            .setGoogleIdTokenRequestOptions(
-                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                    .setSupported(true)
-                    // Your server's client ID, not your Android client ID.
-                    .setServerClientId(getString(R.string.web_client_id))
-                    // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(true)
-                    .build())
-            // Automatically sign in when exactly one credential is retrieved.
-            .setAutoSelectEnabled(true)
-            .build()
-
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode) {
-            REQ_ONE_TAP -> {
-                try {
-                    // ...
-                } catch (e: ApiException) {
-                    when (e.statusCode) {
-                        CommonStatusCodes.CANCELED -> {
-                            Log.d("TAG", "One-tap dialog was closed.")
-                            // Don't re-prompt the user.
-                            showOneTapUI = false
-                        }
-                        CommonStatusCodes.NETWORK_ERROR -> {
-                            Log.d("TAG", "One-tap encountered a network error.")
-                            // Try again or just ignore.
-                        }
-                        else -> {
-                            Log.d("TAG", "Couldn't get credential from result." +
-                                    " (${e.localizedMessage})")
-                        }
-                    }
-                }
-            }
-        }
-    }*/
 //    override fun onMapReady(googleMap: GoogleMap) {
 //
 //        Log.d("mytag", "onMapReady")
