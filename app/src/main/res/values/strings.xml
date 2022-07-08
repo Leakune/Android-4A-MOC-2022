@@ -3,12 +3,22 @@
 
     <string name="mapbox_access_token">pk.eyJ1IjoicmFwaC1kIiwiYSI6ImNrd3l6cnl1ZjBkNzAycXB6cHFibTZoMDIifQ.xuMFOtLtdUX1V50wWwGHrw</string>
 
+    <!--  FIREBASE  -->
+    <string name="web_client_id">377583526022-gqehmbu0ts5vj8jc0nafv5q5jf2sjd9p.apps.googleusercontent.com</string>
+
     <!-- BOTTOM NAVIGATION VIEW -->
     <string name="itinary_search_bottom_nav_item">Itinary search</string>
     <string name="itinary_map_bottom_nav_item">Itinary map</string>
     <string name="score_bottom_nav_item">Score</string>
     <string name="user_trip_history_bottom_nav_item">History</string>
 
+    <!--  AUTHENTICATION VIEW  -->
+    <string name="authentication_login">Login</string>
+    <string name="authentication_password">Password</string>
+    <string name="authentication_submit">Submit</string>
+    <string name="error_credentials_null">Tous les champs doivent être remplis</string>
+
+    <!--  ITINARY SEARCH VIEW  -->
     <string name="itinary_search_from">From</string>
     <string name="itinary_search_to">To</string>
     <string name="itinary_search_submit">Search</string>

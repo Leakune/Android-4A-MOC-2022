@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
 //    id 'org.jetbrains.kotlin.android'
 }
 
@@ -25,6 +26,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "GOOGLE_API_KEY", "\"377583526022-gqehmbu0ts5vj8jc0nafv5q5jf2sjd9p.apps.googleusercontent.com\"")
+        }
+        debug {
+            buildConfigField("String", "GOOGLE_API_KEY", "\"377583526022-gqehmbu0ts5vj8jc0nafv5q5jf2sjd9p.apps.googleusercontent.com\"")
         }
     }
     compileOptions {
@@ -60,6 +65,22 @@ dependencies {
 
     //material
     implementation 'com.google.android.material:material:1.6.1'
+
+    /* Firebase */
+
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    // When using the BoM, don't specify versions in Firebase dependencies
+    //implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
+    /* END Firebase */
+
+    //map
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
