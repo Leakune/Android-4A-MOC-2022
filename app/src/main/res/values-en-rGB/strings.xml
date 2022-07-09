@@ -38,10 +38,6 @@
     <string name="itinary_oneresult_duration">Duration </string>
     <string name="itinary_oneresult_transfers">Transfers </string>
 
-    <string name="authentification_title">authentication page </string>
-    <string name="authentification_login">Login</string>
-    <string name="authentification_password">Password</string>
-    <string name="authentification_submit">Submit</string>
 
     <string name="itinary_search_no_journey">No results for this search</string>
 
