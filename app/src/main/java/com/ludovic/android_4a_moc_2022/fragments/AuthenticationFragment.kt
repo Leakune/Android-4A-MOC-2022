@@ -117,8 +117,6 @@ class AuthenticationFragment : Fragment(R.layout.authentication_fragment) {
                         }
                     }
             }
-
-
         }
 
         googleSigninBtn.setOnClickListener {

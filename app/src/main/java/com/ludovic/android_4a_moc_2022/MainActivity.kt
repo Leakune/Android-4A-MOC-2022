@@ -11,6 +11,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -22,6 +24,7 @@ import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragmentDirections
 import com.ludovic.android_4a_moc_2022.fragments.myContext
 import com.ludovic.android_4a_moc_2022.models.Section
 import kotlinx.android.synthetic.main.activity_main.*
@@ -94,6 +97,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
     val auth = Firebase.auth
 
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null)
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            navController.navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToItinarySearchFragment())
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -113,6 +125,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val toolbarLogoutBtn = findViewById<ImageButton>(R.id.logout)
         toolbarLogoutBtn.setOnClickListener {
             auth.signOut()
+            finish()
         }
 
         //bottom nav configuration
@@ -121,12 +134,21 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         // hide bottom nav at authentication page
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.authenticationFragment) {
-                toolbar.visibility = View.GONE
-                bottomNavigationView.visibility = View.GONE
-            } else {
-                toolbar.visibility = View.VISIBLE
-                bottomNavigationView.visibility = View.VISIBLE
+            when (destination.id) {
+                R.id.authenticationFragment -> {
+                    toolbar.visibility = View.GONE
+                    bottomNavigationView.visibility = View.GONE
+                }
+                R.id.itinaryResultsFragment, R.id.itinaryOneResultFragment -> {
+                    toolbar.visibility = View.VISIBLE
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+                else -> {
+                    toolbar.visibility = View.VISIBLE
+                    bottomNavigationView.visibility = View.VISIBLE
+                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    supportActionBar?.setHomeButtonEnabled(false)
+                }
             }
         }
 
