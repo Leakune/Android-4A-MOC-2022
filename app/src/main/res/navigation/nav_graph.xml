@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authenticationFragment">
+    app:startDestination="@id/authenticationFragment"
+    >
 
     <fragment
         android:id="@+id/authenticationFragment"
@@ -10,7 +11,9 @@
         android:label="@string/AuthenticationFragment" >
         <action
             android:id="@+id/action_authenticationFragment_to_itinarySearchFragment"
-            app:destination="@id/itinarySearchFragment" />
+            app:destination="@id/itinarySearchFragment"
+            app:popUpTo="@+id/authenticationFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/itinarySearchFragment"

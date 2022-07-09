@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -14,6 +15,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragmentDirections
 import com.ludovic.android_4a_moc_2022.fragments.myContext
 import com.ludovic.android_4a_moc_2022.models.Section
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,7 +35,7 @@ fun secToTime(secs: Int): String {
     if (m > 0) {
         res += m.toString() + "m"
     }
-    return res;
+    return res
 }
 
 fun transportLogo(section: Section): TextView {
@@ -39,7 +43,7 @@ fun transportLogo(section: Section): TextView {
     val logoBackground = GradientDrawable()
 
     logoBackground.setColor(Color.parseColor("#${section.publicTransportDetail.color}"))
-    logoText.typeface = Typeface.DEFAULT_BOLD;
+    logoText.typeface = Typeface.DEFAULT_BOLD
     logoText.gravity = Gravity.CENTER
     logoText.text = section.publicTransportDetail.code
     logoText.setTextColor(Color.parseColor("#${section.publicTransportDetail.text_color}"))
@@ -48,12 +52,12 @@ fun transportLogo(section: Section): TextView {
         "Tram" -> {
             logoBackground.setColor(Color.parseColor("#FFFFFF"))
             logoBackground.setStroke(5, Color.parseColor("#${section.publicTransportDetail.color}"))
-            logoBackground.cornerRadius = 300F;
+            logoBackground.cornerRadius = 300F
             logoText.width = 80
             logoText.height = 80
         }
         "Métro" -> {
-            logoBackground.cornerRadius = 300F;
+            logoBackground.cornerRadius = 300F
             logoText.width = 80
             logoText.height = 80
         }
@@ -62,12 +66,12 @@ fun transportLogo(section: Section): TextView {
             logoText.height = 60
         }
         "Train Transilien", "RER" -> {
-            logoBackground.cornerRadius = 15F;
+            logoBackground.cornerRadius = 15F
             logoText.width = 80
             logoText.height = 80
         }
         "TER" -> {
-            logoBackground.cornerRadius = 15F;
+            logoBackground.cornerRadius = 15F
             logoText.width = 120
             logoText.height = 80
         }
@@ -84,11 +88,21 @@ var r: Resources? = null
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
+    val auth = Firebase.auth
+
+    // Check if user is signed in (non-null), then pass through the auth page
+    public override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            navController.navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToItinarySearchFragment())
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        r = resources;
+        r = resources
 
 
         //init navController
@@ -97,23 +111,40 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController = navHostFragment.navController
 
         // toolbar configuration
+        toolbar.contentInsetEndWithActions
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController)
+        val toolbarLogoutBtn = findViewById<ImageButton>(R.id.logout)
+        toolbarLogoutBtn.setOnClickListener {
+            auth.signOut()
+            finish()
+        }
 
         //bottom nav configuration
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController((navController))
 
-        // hide bottom nav at authentication page
+        // hide or display toolbar / bottom nav depending on the current fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.authenticationFragment) {
-                toolbar.visibility = View.GONE
-                bottomNavigationView.visibility = View.GONE
-            } else {
-                toolbar.visibility = View.VISIBLE
-                bottomNavigationView.visibility = View.VISIBLE
+            when (destination.id) {
+                R.id.authenticationFragment -> {
+                    toolbar.visibility = View.GONE
+                    bottomNavigationView.visibility = View.GONE
+                }
+                R.id.itinaryResultsFragment, R.id.itinaryOneResultFragment -> {
+                    toolbar.visibility = View.VISIBLE
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+                else -> {
+                    toolbar.visibility = View.VISIBLE
+                    bottomNavigationView.visibility = View.VISIBLE
+                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    supportActionBar?.setHomeButtonEnabled(false)
+                }
             }
         }
+
+        //configureFirebaseAuthGoogle();
 
 
     }
