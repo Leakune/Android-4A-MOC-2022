@@ -11,16 +11,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -97,9 +90,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
     val auth = Firebase.auth
 
+    // Check if user is signed in (non-null), then pass through the auth page
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null)
         val currentUser = auth.currentUser
         if (currentUser != null) {
             navController.navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToItinarySearchFragment())
@@ -121,7 +114,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         toolbar.contentInsetEndWithActions
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController)
-
         val toolbarLogoutBtn = findViewById<ImageButton>(R.id.logout)
         toolbarLogoutBtn.setOnClickListener {
             auth.signOut()
@@ -132,7 +124,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController((navController))
 
-        // hide bottom nav at authentication page
+        // hide or display toolbar / bottom nav depending on the current fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.authenticationFragment -> {
