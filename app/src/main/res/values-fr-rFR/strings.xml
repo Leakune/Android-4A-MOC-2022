@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">Transport</string>
 
-    <string name="mapbox_access_token">pk.eyJ1IjoicmFwaC1kIiwiYSI6ImNrd3l6cnl1ZjBkNzAycXB6cHFibTZoMDIifQ.xuMFOtLtdUX1V50wWwGHrw</string>
+    <string name="itinarySearchFragment">Itinéraire</string>
+    <string name="AuthenticationFragment">Authentification</string>
+    <string name="ItinaryResultsFragment">Résultats</string>
+    <string name="UserTripHistoryFragment">Historique</string>
+    <string name="ItinaryMapFragment">Carte</string>
+    <string name="ScoreFragment">Score</string>
+    <string name="ItinaryOneResultFragment">Résultat</string>
 
     <!-- BOTTOM NAVIGATION VIEW -->
     <string name="itinary_search_bottom_nav_item">Recherche d\'itinéraire</string>
@@ -33,8 +39,13 @@
     <string name="itinary_oneresult_transfers">Transferts </string>
 
 
+    <string name="itinary_search_no_journey">Aucun resultat pour cette recheche</string>
+
     <string name="duration">Durée</string>
     <string name="walk">Marche</string>
     <string name="wait">Attente en gare</string>
     <string name="toward">Vers</string>
+
+    <string name="set">Valider</string>
+    <string name="now">Maintenant</string>
 </resources>

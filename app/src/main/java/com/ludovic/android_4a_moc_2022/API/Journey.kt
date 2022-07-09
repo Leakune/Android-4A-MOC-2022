@@ -31,6 +31,7 @@ interface APIJourney {
     fun getJourneys(
         @Query("from") from: String, //2.3749036;48.8467927
         @Query("to") to: String, //2.2922926;48.8583736
+        @Query("datetime") datetime: String,
 //        @Query("datetime") datetime: String? = null
     ): Deferred<Search>
 
@@ -61,12 +62,12 @@ data class ErrorJourneyState(val ex: Exception) : JourneyState()
 
 
 object JourneyRepository {
-    suspend fun findJourney(from: String, to: String): Flow<JourneyState> {
+    suspend fun findJourney(from: String, to: String, datetime: String): Flow<JourneyState> {
         return flow {
             emit(LoadingJourneyState)
 
             try {
-                val search = NetworkJourney.apiJourney.getJourneys(from, to).await()
+                val search = NetworkJourney.apiJourney.getJourneys(from, to, datetime).await()
                 emit(SuccessJourneyState(search))
             } catch (e: Exception) {
                 emit(ErrorJourneyState(e))
@@ -79,9 +80,9 @@ class JourneyViewModel : ViewModel() {
     private val _journeyState = MutableLiveData<JourneyState>()
     val journeyState: LiveData<JourneyState> = _journeyState
 
-    fun fetchJourney(from: String, to: String) {
+    fun fetchJourney(from: String, to: String, datetime: String) {
         viewModelScope.launch {
-            JourneyRepository.findJourney(from, to).collect { state ->
+            JourneyRepository.findJourney(from, to, datetime).collect { state ->
                 _journeyState.value = state
             }
         }
