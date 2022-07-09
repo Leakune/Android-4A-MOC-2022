@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/authenticationFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragment"
-        android:label="AuthenticationFragment" >
+        android:label="@string/AuthenticationFragment" >
         <action
             android:id="@+id/action_authenticationFragment_to_itinarySearchFragment"
             app:destination="@id/itinarySearchFragment" />
@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/itinarySearchFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinarySearchFragment"
-        android:label="ItinarySearchFragment" >
+        android:label="@string/itinarySearchFragment" >
         <action
             android:id="@+id/action_itinarySearchFragment_to_itinaryResultsFragment"
             app:destination="@id/itinaryResultsFragment" />
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/itinaryResultsFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryResultsFragment"
-        android:label="ItinaryResultsFragment" >
+        android:label="@string/ItinaryResultsFragment" >
         <argument
             android:name="search"
             app:argType="com.ludovic.android_4a_moc_2022.models.Search" />
@@ -34,19 +34,19 @@
     <fragment
         android:id="@+id/userTripHistoryFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.UserTripHistoryFragment"
-        android:label="UserTripHistoryFragment" />
+        android:label="@string/UserTripHistoryFragment" />
     <fragment
         android:id="@+id/itinaryMapFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryMapFragment"
-        android:label="ItinaryMapFragment" />
+        android:label="@string/ItinaryMapFragment" />
     <fragment
         android:id="@+id/scoreFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ScoreFragment"
-        android:label="ScoreFragment" />
+        android:label="@string/ScoreFragment" />
     <fragment
         android:id="@+id/itinaryOneResultFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryOneResultFragment"
-        android:label="ItinaryOneResultFragment" >
+        android:label="@string/ItinaryOneResultFragment" >
         <argument android:name="journey"
             app:argType="com.ludovic.android_4a_moc_2022.models.Journey" />
     </fragment>
