@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -19,7 +20,6 @@ import com.ludovic.android_4a_moc_2022.R
 import com.ludovic.android_4a_moc_2022.models.Place
 import kotlinx.android.synthetic.main.itinary_search_fragment.view.*
 import kotlinx.android.synthetic.main.place_item_cell.view.*
-import kotlinx.coroutines.DelicateCoroutinesApi
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -36,6 +36,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
     val journeyViewModel: JourneyViewModel by viewModels()
 
     var departureDate: LocalDateTime = LocalDateTime.now()
+    var forbiddenUris: MutableList<String> = mutableListOf()
 
     fun dateTimePickerSetup(view: View) {
         val itinarySearchDate = view.findViewById<Button>(R.id.itinary_search_date);
@@ -76,7 +77,8 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
             itinarySearchSubmit.isEnabled = true
         }
         itinarySearchDatePicker.setOnDateChangedListener { _, year, month, day ->
-            departureDate = LocalDateTime.of(year, month, day, departureDate.hour, departureDate.minute)
+            departureDate =
+                LocalDateTime.of(year, month, day, departureDate.hour, departureDate.minute)
         }
         itinarySearchTimePicker.setOnTimeChangedListener { _, hours, minutes ->
             departureDate = LocalDateTime.of(
@@ -89,6 +91,41 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         }
     }
 
+    fun transportModePickerSetup(view: View) {
+
+        forbiddenUris = mutableListOf()
+
+        val itinarySearchTransport = view.findViewById<Button>(R.id.itinary_search_transport);
+        val itinarySearchTransportClose =
+            view.findViewById<Button>(R.id.itinary_search_transport_close);
+        val itinarySearchTransportPopup =
+            view.findViewById<LinearLayout>(R.id.itinary_search_transport_popup);
+        val itinarySearchSubmit = view.findViewById<Button>(R.id.itinary_search_submit);
+
+        itinarySearchTransport.setOnClickListener {
+            itinarySearchTransportPopup.visibility = View.VISIBLE
+        }
+
+        itinarySearchTransportClose.setOnClickListener {
+            itinarySearchTransportPopup.visibility = View.GONE
+            itinarySearchSubmit.isEnabled = true
+        }
+
+        val itinarySearchTransportCheckbox =
+            view.findViewById<LinearLayout>(R.id.itinary_search_transport_checkbox)
+        itinarySearchTransportCheckbox.children.forEach {
+            it as CheckBox
+            it.setOnCheckedChangeListener { compoundButton, b ->
+                if (!b) {
+                    forbiddenUris.add(it.tag.toString())
+                } else {
+                    forbiddenUris.remove(it.tag.toString())
+                }
+                Log.d("mytag", forbiddenUris.toString())
+            }
+        }
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -107,6 +144,8 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
             itinarySearchRecyclerView.layoutParams as ConstraintLayout.LayoutParams
 
         dateTimePickerSetup(view)
+        transportModePickerSetup(view)
+
 
         journeyViewModel.journeyState.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -118,7 +157,8 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                     itinarySearchRecyclerView.visibility = View.GONE;
                     itinarySearchRecyclerEmpty.visibility = View.GONE
                     itinarySearchNoResut.visibility = View.VISIBLE
-                    itinarySearchSubmit.text = view.resources.getString(R.string.itinary_search_submit)
+                    itinarySearchSubmit.text =
+                        view.resources.getString(R.string.itinary_search_submit)
                 }
                 is SuccessJourneyState -> {
                     val action =
@@ -135,7 +175,8 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                     itinarySearchRecyclerView.visibility = View.GONE;
                     itinarySearchRecyclerEmpty.visibility = View.GONE
                     itinarySearchNoResut.visibility = View.VISIBLE
-                    itinarySearchSubmit.text = view.resources.getString(R.string.itinary_search_submit)
+                    itinarySearchSubmit.text =
+                        view.resources.getString(R.string.itinary_search_submit)
                 }
                 else -> {}
             }
@@ -253,7 +294,8 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                 journeyViewModel.fetchJourney(
                     from = from!!.getCoords(),
                     to = to!!.getCoords(),
-                    datetime = departureDate.format(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss"))
+                    datetime = departureDate.format(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss")),
+                    forbidden_uris = forbiddenUris
                 )
             }
         }

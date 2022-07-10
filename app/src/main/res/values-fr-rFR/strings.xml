@@ -48,4 +48,6 @@
 
     <string name="set">Valider</string>
     <string name="now">Maintenant</string>
+
+    <string name="close">Fermer</string>
 </resources>
