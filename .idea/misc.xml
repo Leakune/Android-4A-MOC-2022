@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/background_circle.xml" value="0.2535" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/background_round.xml" value="0.2535" />
+        <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/border_background.xml" value="0.2205" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/ic_baseline_directions_walk_24.xml" value="0.2535" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/ic_baseline_timelapse_24.xml" value="0.2535" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/metro_14.xml" value="0.2535" />
@@ -13,7 +14,7 @@
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/score_icon.xml" value="0.2535" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/walk.xml" value="0.2525" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/activity_main.xml" value="0.20606884057971014" />
-        <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/authentication_fragment.xml" value="0.40398550724637683" />
+        <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/authentication_fragment.xml" value="0.2" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/itinary_one_result.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/itinary_results_fragment.xml" value="0.246875" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/itinary_search_fragment.xml" value="0.25" />

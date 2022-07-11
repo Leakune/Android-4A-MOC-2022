@@ -1,13 +1,34 @@
 <resources>
     <string name="app_name">Transport</string>
 
-    <string name="mapbox_access_token">pk.eyJ1IjoicmFwaC1kIiwiYSI6ImNrd3l6cnl1ZjBkNzAycXB6cHFibTZoMDIifQ.xuMFOtLtdUX1V50wWwGHrw</string>
+    <string name="itinarySearchFragment">Itinerary</string>
+    <string name="AuthenticationFragment">Authentication</string>
+    <string name="ItinaryResultsFragment">Results</string>
+    <string name="UserTripHistoryFragment">History</string>
+    <string name="ItinaryMapFragment">Map</string>
+    <string name="ScoreFragment">Score</string>
+    <string name="ItinaryOneResultFragment">Result</string>
 
     <!-- BOTTOM NAVIGATION VIEW -->
     <string name="itinary_search_bottom_nav_item">Búsqueda de itinerario</string>
     <string name="itinary_map_bottom_nav_item">Mapa del itinerario</string>
     <string name="score_bottom_nav_item">Puntaje</string>
     <string name="user_trip_history_bottom_nav_item">Histórico</string>
+
+    <!--  AUTHENTICATION VIEW  -->
+    <string name="authentification_title">Página de autenticación</string>
+    <string name="authentication_login">Acceso</string>
+    <string name="authentication_password">Clave</string>
+    <string name="authentication_confirm_password">Confirmar contraseña</string>
+    <string name="authentication_submit">Enviar</string>
+    <string name="authentication_or">O</string>
+    <string name="error_credentials_null">Todos los campos deben ser rellenados</string>
+    <string name="authentication_create_account">Crear una nueva cuenta</string>
+    <string name="authentication_signin">Iniciar sesión en la cuenta existente</string>
+    <string name="authentication_error_credentials">Error: los identificadores no son correctos</string>
+    <string name="authentication_error_passwords">Error: Las contraseñas no son idénticas</string>
+    <string name="authentication_error_google">Error de conexión con Google</string>
+    <string name="authentication_error_create_account">Error en la creación de la cuenta: %1$s</string>
 
     <string name="itinary_search_from">De</string>
     <string name="itinary_search_to">A</string>
@@ -17,14 +38,17 @@
     <string name="itinary_oneresult_duration">Duración </string>
     <string name="itinary_oneresult_transfers">Transferencias </string>
 
-    <string name="authentification_title">página de autenticación</string>
-    <string name="authentification_login">Acceso</string>
-    <string name="authentification_password">Clave</string>
-    <string name="authentification_submit">Enviar</string>
+
+    <string name="itinary_search_no_journey">No results for this search</string>
 
     <string name="duration">Duration</string>
     <string name="walk">Marche</string>
     <string name="wait">Wait in station</string>
     <string name="toward">Toward</string>
+
+    <string name="set">Set</string>
+    <string name="now">Now</string>
+
+    <string name="close">Close</string>
 
 </resources>

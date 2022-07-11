@@ -1,13 +1,34 @@
 <resources>
     <string name="app_name">Transport</string>
 
-    <string name="mapbox_access_token">pk.eyJ1IjoicmFwaC1kIiwiYSI6ImNrd3l6cnl1ZjBkNzAycXB6cHFibTZoMDIifQ.xuMFOtLtdUX1V50wWwGHrw</string>
+    <string name="itinarySearchFragment">Itinéraire</string>
+    <string name="AuthenticationFragment">Authentification</string>
+    <string name="ItinaryResultsFragment">Résultats</string>
+    <string name="UserTripHistoryFragment">Historique</string>
+    <string name="ItinaryMapFragment">Carte</string>
+    <string name="ScoreFragment">Score</string>
+    <string name="ItinaryOneResultFragment">Résultat</string>
 
     <!-- BOTTOM NAVIGATION VIEW -->
     <string name="itinary_search_bottom_nav_item">Recherche d\'itinéraire</string>
     <string name="itinary_map_bottom_nav_item">Carte de l\'itinéraire</string>
     <string name="score_bottom_nav_item">Point</string>
     <string name="user_trip_history_bottom_nav_item">Historique</string>
+
+    <!--  AUTHENTICATION VIEW  -->
+    <string name="authentification_title">Page d\'authentification</string>
+    <string name="authentication_login">Login</string>
+    <string name="authentication_password">Mot de passe</string>
+    <string name="authentication_confirm_password">Confirmer mot de passe</string>
+    <string name="authentication_submit">Valider</string>
+    <string name="authentication_or">Ou</string>
+    <string name="error_credentials_null">Tous les champs doivent être remplis</string>
+    <string name="authentication_create_account">Créer un nouveau compte</string>
+    <string name="authentication_signin">Se connecter avec un compte existant</string>
+    <string name="authentication_error_credentials">Erreur: les identifiants ne pas correctes</string>
+    <string name="authentication_error_passwords">Erreur: les mots de passes ne sont pas identiques</string>
+    <string name="authentication_error_google">Erreur de connexion avec Google</string>
+    <string name="authentication_error_create_account">Erreur de création du compte: %1$s</string>
 
     <string name="itinary_search_from">De</string>
     <string name="itinary_search_to">À</string>
@@ -17,13 +38,16 @@
     <string name="itinary_oneresult_duration">Durée </string>
     <string name="itinary_oneresult_transfers">Transferts </string>
 
-    <string name="authentification_title">page d\'authentification</string>
-    <string name="authentification_login">Connexion</string>
-    <string name="authentification_password">Mot de passe</string>
-    <string name="authentification_submit">Valider</string>
+
+    <string name="itinary_search_no_journey">Aucun resultat pour cette recheche</string>
 
     <string name="duration">Durée</string>
     <string name="walk">Marche</string>
     <string name="wait">Attente en gare</string>
     <string name="toward">Vers</string>
+
+    <string name="set">Valider</string>
+    <string name="now">Maintenant</string>
+
+    <string name="close">Fermer</string>
 </resources>
