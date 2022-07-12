@@ -51,6 +51,7 @@
         <entry key="app/src/main/res/layout/route_results_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/route_search_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/score_fragment.xml" value="0.2776268115942029" />
+        <entry key="app/src/main/res/layout/score_item_cell.xml" value="0.3557653233624888" />
         <entry key="app/src/main/res/layout/splash_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/user_trip_history.xml" value="0.2" />
         <entry key="app/src/main/res/layout/user_trip_history_fragment.xml" value="0.16331176757812502" />

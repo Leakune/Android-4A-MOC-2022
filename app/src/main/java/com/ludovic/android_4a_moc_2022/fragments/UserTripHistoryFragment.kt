@@ -75,15 +75,15 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.updateItem(
-            journey = history[position]
+            history = history[position]
         )
         holder.itemView.setOnClickListener {
             onClickListener.onClick(history[position])
         }
     }
 
-    class OnClickListener(val clickListener: (journey: String) -> Unit) {
-        fun onClick(journey: String) = clickListener(journey)
+    class OnClickListener(val clickListener: (history: String) -> Unit) {
+        fun onClick(history: String) = clickListener(history)
     }
 
 
@@ -99,14 +99,14 @@ class HistoryViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     val journeyCellTransportsList: LinearLayout = v.journeyCellTransportsList
     val journeyCellDuration: TextView = v.journeyCellDuration*/
 
-    lateinit var journey: String
+    lateinit var history: String
 
     init {
 
     }
 
-    fun updateItem(journey: String) {
-        this.journey = journey
+    fun updateItem(history: String) {
+        this.history = history
 
        /* val hours = journey.durations.total / 3600;
         val minutes = (journey.durations.total % 3600) / 60;
@@ -116,7 +116,7 @@ class HistoryViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         //val format = SimpleDateFormat("HH:mm")
 
-        journeyCellTimeStart.text = journey
+        journeyCellTimeStart.text = history
        // journeyCellTimeStart.text = format.format(journey.departure_date_time)
         //journeyCellTimeEnd.text = format.format(journey.arrival_date_time)
 
