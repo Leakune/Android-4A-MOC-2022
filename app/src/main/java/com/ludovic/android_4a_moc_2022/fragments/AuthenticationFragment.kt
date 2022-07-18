@@ -19,9 +19,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ludovic.android_4a_moc_2022.BuildConfig.GOOGLE_API_KEY
 import com.ludovic.android_4a_moc_2022.R
+import com.ludovic.android_4a_moc_2022.auth
 
 class AuthenticationFragment : Fragment(R.layout.authentication_fragment) {
-    val auth = Firebase.auth
     val action =
         AuthenticationFragmentDirections.actionAuthenticationFragmentToItinarySearchFragment()
     var isLoginMode = true
@@ -63,7 +63,7 @@ class AuthenticationFragment : Fragment(R.layout.authentication_fragment) {
             val account = task.getResult(ApiException::class.java)!!
             val idToken = account.idToken
 
-            Firebase.auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null))
+            auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null))
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         authView.findNavController().navigate(action)

@@ -17,6 +17,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragmentDirections
 import com.ludovic.android_4a_moc_2022.fragments.myContext
@@ -88,9 +89,11 @@ fun transportLogo(section: Section): TextView {
 
 var r: Resources? = null
 
+val auth = Firebase.auth
+val db = Firebase.firestore
+
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
-    val auth = Firebase.auth
 
     // Check if user is signed in (non-null), then pass through the auth page
     public override fun onStart() {

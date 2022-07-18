@@ -87,8 +87,17 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
 
         Log.d("mytag", "onViewCreated")
 
+
         OneResultChooseButton.setOnClickListener {
-            // AJOUTER A L'HISTORIQUE
+            db.collection("journeys")
+                .add(journey.serialize(auth.currentUser!!.uid))
+                .addOnSuccessListener { documentReference ->
+                    Log.d("Success add journey", "DocumentSnapshot added with ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Error add journey", "Error adding document", e)
+                }
+
         }
 
 
