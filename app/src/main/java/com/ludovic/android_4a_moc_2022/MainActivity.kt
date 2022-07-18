@@ -50,7 +50,8 @@ fun transportLogo(section: Section): TextView {
     logoText.setTextColor(Color.parseColor("#${section.publicTransportDetail.text_color}"))
 
     when (section.publicTransportDetail.commercial_mode) {
-        "Tram" -> {
+        "Tramway" -> {
+            logoText.setTextColor(Color.parseColor("#000000"))
             logoBackground.setColor(Color.parseColor("#FFFFFF"))
             logoBackground.setStroke(5, Color.parseColor("#${section.publicTransportDetail.color}"))
             logoBackground.cornerRadius = 300F

@@ -2,6 +2,7 @@ package com.ludovic.android_4a_moc_2022.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,6 +96,7 @@ class JourneyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
     fun updateItem(journey: Journey) {
         this.journey = journey
+
 
         val hours = journey.durations.total / 3600;
         val minutes = (journey.durations.total % 3600) / 60;

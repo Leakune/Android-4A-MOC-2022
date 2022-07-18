@@ -15,6 +15,7 @@
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/drawable/walk.xml" value="0.2525" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/activity_main.xml" value="0.20606884057971014" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/authentication_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/history_item_cell.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/itinary_one_result.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/itinary_results_fragment.xml" value="0.246875" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/itinary_search_fragment.xml" value="0.25" />
@@ -22,25 +23,18 @@
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/one_result_bottom_sheet.xml" value="0.27219202898550726" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/one_result_item_cell.xml" value="0.43037974683544306" />
         <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/place_item_cell.xml" value="0.30833333333333335" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1575" />
+        <entry key="..\:/Users/Radhamante/Desktop/TRAVAIL/APP_ANDROID/app/src/main/res/layout/user_trip_history_fragment.xml" value="0.24791666666666667" />
         <entry key="app/src/main/res/drawable/background_circle.xml" value="0.19" />
         <entry key="app/src/main/res/drawable/background_round.xml" value="0.19" />
         <entry key="app/src/main/res/drawable/border_background.xml" value="0.189" />
-        <entry key="app/src/main/res/drawable/ic_baseline_directions_walk_24.xml" value="0.1575" />
-        <entry key="app/src/main/res/drawable/ic_baseline_logout_48.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_baseline_more_horiz_24.xml" value="0.1575" />
-        <entry key="app/src/main/res/drawable/ic_baseline_timelapse_24.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3285" />
         <entry key="app/src/main/res/drawable/itinary_map_icon_24.xml" value="0.3285" />
         <entry key="app/src/main/res/drawable/itinary_search_icon_24.xml" value="0.3285" />
         <entry key="app/src/main/res/drawable/rounded_background.xml" value="0.19" />
-        <entry key="app/src/main/res/drawable/rounded_background_shadow.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/score_icon.xml" value="0.3285" />
-        <entry key="app/src/main/res/drawable/user_trip_history_icon_24.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21670428893905191" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/authentication_fragment.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/history_item_cell.xml" value="0.2878891284946492" />
         <entry key="app/src/main/res/layout/itinary_map_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/itinary_results_fragment.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/itinary_search_fragment.xml" value="0.67" />
@@ -51,10 +45,9 @@
         <entry key="app/src/main/res/layout/route_results_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/route_search_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/score_fragment.xml" value="0.2776268115942029" />
-        <entry key="app/src/main/res/layout/score_item_cell.xml" value="0.3557653233624888" />
         <entry key="app/src/main/res/layout/splash_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/user_trip_history.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/user_trip_history_fragment.xml" value="0.16331176757812502" />
+        <entry key="app/src/main/res/layout/user_trip_history_fragment.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.37604166666666666" />
       </map>
     </option>

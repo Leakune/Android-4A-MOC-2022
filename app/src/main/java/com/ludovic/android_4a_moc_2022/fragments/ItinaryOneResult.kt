@@ -9,9 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -68,6 +66,8 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
         val oneResultDuration = view.findViewById<TextView>(R.id.itinary_oneresult_duration)
         val oneResultTransfere = view.findViewById<TextView>(R.id.itinary_oneresult_transfere)
 
+        val OneResultChooseButton = view.findViewById<Button>(R.id.OneResultChooseButton)
+
         val format = SimpleDateFormat("HH:mm")
 
         oneResultStartTime.text = format.format(journey.departure_date_time)
@@ -86,6 +86,10 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
         )
 
         Log.d("mytag", "onViewCreated")
+
+        OneResultChooseButton.setOnClickListener {
+            // AJOUTER A L'HISTORIQUE
+        }
 
 
     }
