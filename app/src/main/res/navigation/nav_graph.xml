@@ -2,23 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authenticationFragment"
-    >
+    app:startDestination="@id/authenticationFragment">
 
     <fragment
         android:id="@+id/authenticationFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragment"
-        android:label="@string/AuthenticationFragment" >
+        android:label="@string/AuthenticationFragment">
         <action
             android:id="@+id/action_authenticationFragment_to_itinarySearchFragment"
             app:destination="@id/itinarySearchFragment"
             app:popUpTo="@+id/authenticationFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/itinarySearchFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinarySearchFragment"
-        android:label="@string/itinarySearchFragment" >
+        android:label="@string/itinarySearchFragment">
         <action
             android:id="@+id/action_itinarySearchFragment_to_itinaryResultsFragment"
             app:destination="@id/itinaryResultsFragment" />
@@ -26,7 +25,7 @@
     <fragment
         android:id="@+id/itinaryResultsFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryResultsFragment"
-        android:label="@string/ItinaryResultsFragment" >
+        android:label="@string/ItinaryResultsFragment">
         <argument
             android:name="search"
             app:argType="com.ludovic.android_4a_moc_2022.models.Search" />
@@ -37,11 +36,11 @@
     <fragment
         android:id="@+id/userTripHistoryFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.UserTripHistoryFragment"
-        android:label="@string/UserTripHistoryFragment" />
-    <fragment
-        android:id="@+id/itinaryMapFragment"
-        android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryMapFragment"
-        android:label="@string/ItinaryMapFragment" />
+        android:label="@string/UserTripHistoryFragment">
+        <action
+            android:id="@+id/action_userTripHistoryFragment_to_itinaryOneResultFragment"
+            app:destination="@id/itinaryOneResultFragment" />
+    </fragment>
     <fragment
         android:id="@+id/scoreFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ScoreFragment"
@@ -49,8 +48,12 @@
     <fragment
         android:id="@+id/itinaryOneResultFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryOneResultFragment"
-        android:label="@string/ItinaryOneResultFragment" >
-        <argument android:name="journey"
+        android:label="@string/ItinaryOneResultFragment">
+        <argument
+            android:name="journey"
             app:argType="com.ludovic.android_4a_moc_2022.models.Journey" />
+        <argument
+            android:name="showSaveButton"
+            app:argType="boolean" />
     </fragment>
 </navigation>

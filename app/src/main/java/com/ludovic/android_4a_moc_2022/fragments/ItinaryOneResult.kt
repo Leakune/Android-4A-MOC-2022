@@ -35,6 +35,7 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
     private val args: ItinaryOneResultFragmentArgs by navArgs()
     private lateinit var mMap: GoogleMap
     lateinit var journey: Journey
+    var showSaveBtn: Boolean = false
     var mapFragment: SupportMapFragment? = null
 
     override fun onCreateView(
@@ -51,7 +52,9 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mainActivity = (activity as MainActivity)
         super.onViewCreated(view, savedInstanceState)
+        myContext = requireContext()
         journey = args.journey
+        showSaveBtn = args.showSaveButton
 
         view.oneResultSectionList.layoutManager = LinearLayoutManager(requireContext())
 
@@ -67,13 +70,15 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
         val oneResultTransfere = view.findViewById<TextView>(R.id.itinary_oneresult_transfere)
 
         val OneResultChooseButton = view.findViewById<Button>(R.id.OneResultChooseButton)
-
+        if(!showSaveBtn){
+            OneResultChooseButton.visibility = View.GONE
+        }
         val format = SimpleDateFormat("HH:mm")
 
         oneResultStartTime.text = format.format(journey.departure_date_time)
         oneResultEndTime.text = format.format(journey.arrival_date_time)
-        oneResultStartPlace.text = journey.sections.first().from.name
-        oneResultEndPlace.text = journey.sections.last().to.name
+        oneResultStartPlace.text = journey.sections.first().from?.name ?: "-"
+        oneResultEndPlace.text = journey.sections.last().to?.name ?: "-"
 
         oneResultDuration.text = secToTime(journey.durations.total)
         oneResultTransfere.text = journey.nb_transfers.toString()
@@ -87,8 +92,17 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
 
         Log.d("mytag", "onViewCreated")
 
+
         OneResultChooseButton.setOnClickListener {
-            // AJOUTER A L'HISTORIQUE
+            db.collection("journeys")
+                .add(journey.serialize(auth.currentUser!!.uid))
+                .addOnSuccessListener { documentReference ->
+                    Log.d("Success add journey", "DocumentSnapshot added with ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Error add journey", "Error adding document", e)
+                }
+
         }
 
 
@@ -135,19 +149,19 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
             lineCaps.draw(canvas)
             val markerIcon = BitmapDescriptorFactory.fromBitmap(bitmap)
 
-            if (section.geoJson.type == "LineString") {
+            if (section.geoJson !== null && section.geoJson!!.type == "LineString") {
                 googleMap.addMarker(
                     MarkerOptions()
                         .position(
                             LatLng(
-                                section.geoJson.coordinates[0][1].toDouble(),
-                                section.geoJson.coordinates[0][0].toDouble()
+                                section.geoJson!!.coordinates[0][1].toDouble(),
+                                section.geoJson!!.coordinates[0][0].toDouble()
                             )
                         )
                         .anchor(0.5f, 0.5f)
                         .icon(markerIcon)
                 )
-                for (coord in section.geoJson.coordinates) {
+                for (coord in section.geoJson!!.coordinates) {
                     option.add(LatLng(coord[1].toDouble(), coord[0].toDouble()))
                 }
             }
@@ -231,8 +245,8 @@ class SectionsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
             )
             startTime.text = format.format(section.departure_date_time)
             endTime.text = format.format(section.arrival_date_time)
-            startPlace.text = section.from.name
-            endPlace.text = section.to.name
+            startPlace.text = section.from?.name ?: "-"
+            endPlace.text = section.to?.name ?: "-"
             val background = GradientDrawable()
             background.cornerRadius = 50f
             background.setColor(Color.parseColor("#${section.publicTransportDetail.color}"))

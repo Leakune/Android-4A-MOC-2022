@@ -10,13 +10,12 @@ class Section(
     val type: String,
     val arrival_date_time: Date,
     val departure_date_time: Date,
-    val from: From,
-    val to: To,
+    val from: From?,
+    val to: To?,
     val duration: Int,
-    val co2_emission: Co2Emission,
+    val co2_emission: Co2Emission?,
     @SerializedName("display_informations")
-    val publicTransportDetail : PublicTransportDetail,
+    val publicTransportDetail: PublicTransportDetail?,
     @SerializedName("geojson")
-    val geoJson: GeoJson
-) : Parcelable {
-}
+    var geoJson: GeoJson?
+) : Parcelable

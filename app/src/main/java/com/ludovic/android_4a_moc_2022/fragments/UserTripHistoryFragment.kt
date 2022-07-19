@@ -1,56 +1,61 @@
 package com.ludovic.android_4a_moc_2022.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.Lottie
 import com.airbnb.lottie.LottieAnimationView
+import com.ludovic.android_4a_moc_2022.API.*
 import com.ludovic.android_4a_moc_2022.R
 import com.ludovic.android_4a_moc_2022.models.Journey
-import com.ludovic.android_4a_moc_2022.transportLogo
 import kotlinx.android.synthetic.main.history_item_cell.view.*
-import kotlinx.android.synthetic.main.itinary_results_fragment.view.*
-import kotlinx.android.synthetic.main.journey_item_cell.view.*
 import java.text.SimpleDateFormat
 
-class UserTripHistoryFragment : Fragment(R.layout.user_trip_history_fragment){
-    val listHistory = listOf("1", "2", "3")
-    //val listHistory: List<String> = listOf<String>()
+class UserTripHistoryFragment : Fragment(R.layout.user_trip_history_fragment) {
+    private val historyViewModel: HistoryViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView_history);
-        val textView = view.findViewById<TextView>(R.id.empty_history);
-        val lottie = view.findViewById<LottieAnimationView>(R.id.empty_history_lottie);
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView_history)
+        val textView = view.findViewById<TextView>(R.id.empty_history)
+        val lottie = view.findViewById<LottieAnimationView>(R.id.empty_history_lottie)
 
-        if (listHistory.isEmpty()){
-            textView.visibility =  View.VISIBLE
-            lottie.visibility =  View.VISIBLE
-            recyclerView.visibility =  View.GONE
-        }else{
-            textView.visibility =  View.GONE
-            lottie.visibility =  View.GONE
-            recyclerView.visibility =  View.VISIBLE
-        }
+        historyViewModel.fetchHistory.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is LoadingHistoryState, EmptyHistoryState, is ErrorHistoryState -> {
+                    textView.visibility = View.VISIBLE
+                    lottie.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                }
+                is SuccessHistoryState -> {
+                    textView.visibility = View.GONE
+                    lottie.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext());
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-
-        recyclerView.adapter = HistoryAdapter(
-            listHistory,
-            HistoryAdapter.OnClickListener { journey: String ->
-
-
+                    recyclerView.adapter = HistoryAdapter(
+                        state.history.value,
+                        HistoryAdapter.OnClickListener { journey: Journey ->
+                            val action =
+                                UserTripHistoryFragmentDirections.actionUserTripHistoryFragmentToItinaryOneResultFragment(
+                                    journey,
+                                    false
+                                )
+                            view.findNavController().navigate(action)
+                        }
+                    )
+                }
+                else -> {}
             }
-        )
+        }
 
     }
 
@@ -58,7 +63,7 @@ class UserTripHistoryFragment : Fragment(R.layout.user_trip_history_fragment){
 
 
 class HistoryAdapter(
-    private val history: List<String>,
+    private val history: MutableList<Journey>,
     private val onClickListener: OnClickListener
 ) :
     RecyclerView.Adapter<HistoryViewHolder>() {
@@ -82,85 +87,37 @@ class HistoryAdapter(
         }
     }
 
-    class OnClickListener(val clickListener: (history: String) -> Unit) {
-        fun onClick(history: String) = clickListener(history)
+    class OnClickListener(val clickListener: (history: Journey) -> Unit) {
+        fun onClick(history: Journey) = clickListener(history)
     }
-
 
 
 }
 
 
-
 class HistoryViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
-    val journeyCellTimeStart: TextView = v.time
-    /*val journeyCellTimeEnd: TextView = v.journeyCellTimeEnd
-    val journeyCellTransportsList: LinearLayout = v.journeyCellTransportsList
-    val journeyCellDuration: TextView = v.journeyCellDuration*/
+    private val journeyCellTimeStart: TextView = v.time
+    private val journeyCellDate: TextView = v.date
+    private val journeyDeparturePlace: TextView = v.ll_start
+    private val journeyArrivalPlace: TextView = v.ll_end
 
-    lateinit var history: String
+    lateinit var history: Journey
 
-    init {
-
-    }
-
-    fun updateItem(history: String) {
+    fun updateItem(history: Journey) {
         this.history = history
 
-       /* val hours = journey.durations.total / 3600;
-        val minutes = (journey.durations.total % 3600) / 60;
-        val seconds = journey.durations.total % 60;*/
+        val formatDate = SimpleDateFormat("EEE dd MMMM yyyy")
+        journeyCellDate.text = formatDate.format(history.departure_date_time)
 
-       // val timeString = String.format("%02dh%02d", hours, minutes);
+        val formatTime = SimpleDateFormat("HH:mm")
+        val departureDate = formatTime.format(history.departure_date_time)
+        val arrivalDate = formatTime.format(history.arrival_date_time)
+        journeyCellTimeStart.text = "$departureDate / $arrivalDate"
 
-        //val format = SimpleDateFormat("HH:mm")
+        journeyDeparturePlace.text = history.sections.first().from?.name ?: "-"
+        journeyArrivalPlace.text = history.sections.last().to?.name ?: "-"
 
-        journeyCellTimeStart.text = history
-       // journeyCellTimeStart.text = format.format(journey.departure_date_time)
-        //journeyCellTimeEnd.text = format.format(journey.arrival_date_time)
-
-        /*var count = 0
-        for ( sec in journey.sections) {
-            if(count == 7){
-                break
-            }
-            when (sec.type) {
-                "public_transport" -> {
-                    count+=1
-                    val logo = transportLogo(sec)
-                    journeyCellTransportsList.addView(logo)
-
-                }
-                "street_network", "transfer" -> {
-                    count+=1
-                    val logo = ImageView(myContext)
-                    logo.setImageResource(R.drawable.ic_baseline_directions_walk_24)
-                    journeyCellTransportsList.addView(logo)
-                }
-                else -> {
-                    journeyCellTransportsList.removeView(
-                        journeyCellTransportsList.getChildAt(
-                            journeyCellTransportsList.childCount - 1
-                        )
-                    )
-                }
-            }
-            val chevron = TextView(myContext)
-            chevron.textSize = 15f
-            chevron.text = " > "
-            journeyCellTransportsList.addView(chevron)
-        }*/
-        /*journeyCellTransportsList.removeView(
-            journeyCellTransportsList.getChildAt(
-                journeyCellTransportsList.childCount - 1
-            )
-        )
-        if(count == 7) {
-            val logo = ImageView(myContext)
-            logo.setImageResource(R.drawable.ic_baseline_more_horiz_24)
-            journeyCellTransportsList.addView(logo)
-        }*/
     }
 
 }

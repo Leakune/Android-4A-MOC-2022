@@ -6,11 +6,6 @@
         android:icon="@drawable/itinary_search_icon_24"
         android:title="@string/itinary_search_bottom_nav_item"/>
     <item
-        android:id="@+id/itinaryMapFragment"
-        android:enabled="true"
-        android:icon="@drawable/itinary_map_icon_24"
-        android:title="@string/itinary_map_bottom_nav_item"/>
-    <item
         android:id="@+id/scoreFragment"
         android:enabled="true"
         android:icon="@drawable/score_icon"

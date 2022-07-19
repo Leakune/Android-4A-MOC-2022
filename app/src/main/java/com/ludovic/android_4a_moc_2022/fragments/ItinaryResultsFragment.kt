@@ -1,8 +1,6 @@
 package com.ludovic.android_4a_moc_2022.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ludovic.android_4a_moc_2022.R
 import com.ludovic.android_4a_moc_2022.models.Journey
 import com.ludovic.android_4a_moc_2022.models.Search
+import com.ludovic.android_4a_moc_2022.myContext
 import com.ludovic.android_4a_moc_2022.transportLogo
 import kotlinx.android.synthetic.main.itinary_results_fragment.view.*
 import kotlinx.android.synthetic.main.journey_item_cell.view.*
 import java.text.SimpleDateFormat
 
-var myContext: Context? = null
 class ItinaryResultsFragment : Fragment(R.layout.itinary_results_fragment) {
 
     private val args: ItinaryResultsFragmentArgs by navArgs()
@@ -39,7 +37,8 @@ class ItinaryResultsFragment : Fragment(R.layout.itinary_results_fragment) {
             JourneyAdapter.OnClickListener { journey: Journey ->
                 val action =
                     ItinaryResultsFragmentDirections.actionItinaryResultsFragmentToItinaryOneResultFragment(
-                        journey
+                        journey,
+                    true,
                     );
 
                 view.findNavController().navigate(action)
