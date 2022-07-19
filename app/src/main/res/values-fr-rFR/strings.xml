@@ -5,7 +5,6 @@
     <string name="AuthenticationFragment">Authentification</string>
     <string name="ItinaryResultsFragment">Résultats</string>
     <string name="UserTripHistoryFragment">Historique</string>
-    <string name="ItinaryMapFragment">Carte</string>
     <string name="ScoreFragment">Score</string>
     <string name="ItinaryOneResultFragment">Résultat</string>
 

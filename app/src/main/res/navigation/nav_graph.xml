@@ -42,10 +42,6 @@
             app:destination="@id/itinaryOneResultFragment" />
     </fragment>
     <fragment
-        android:id="@+id/itinaryMapFragment"
-        android:name="com.ludovic.android_4a_moc_2022.fragments.ItinaryMapFragment"
-        android:label="@string/ItinaryMapFragment" />
-    <fragment
         android:id="@+id/scoreFragment"
         android:name="com.ludovic.android_4a_moc_2022.fragments.ScoreFragment"
         android:label="@string/ScoreFragment" />
