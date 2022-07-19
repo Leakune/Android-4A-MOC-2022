@@ -1,5 +1,6 @@
 package com.ludovic.android_4a_moc_2022
 
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
@@ -7,7 +8,6 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +20,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragmentDirections
-import com.ludovic.android_4a_moc_2022.fragments.myContext
 import com.ludovic.android_4a_moc_2022.models.Section
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.ceil
@@ -44,13 +43,13 @@ fun transportLogo(section: Section): TextView {
     val logoText = TextView(myContext)
     val logoBackground = GradientDrawable()
 
-    logoBackground.setColor(Color.parseColor("#${section.publicTransportDetail.color}"))
+    logoBackground.setColor(Color.parseColor("#${section.publicTransportDetail?.color}"))
     logoText.typeface = Typeface.DEFAULT_BOLD
     logoText.gravity = Gravity.CENTER
-    logoText.text = section.publicTransportDetail.code
-    logoText.setTextColor(Color.parseColor("#${section.publicTransportDetail.text_color}"))
+    logoText.text = section.publicTransportDetail?.code ?: "-"
+    logoText.setTextColor(Color.parseColor("#${section.publicTransportDetail?.text_color}"))
 
-    when (section.publicTransportDetail.commercial_mode) {
+    when (section.publicTransportDetail?.commercial_mode) {
         "Tramway" -> {
             logoText.setTextColor(Color.parseColor("#000000"))
             logoBackground.setColor(Color.parseColor("#FFFFFF"))
@@ -91,6 +90,7 @@ var r: Resources? = null
 
 val auth = Firebase.auth
 val db = Firebase.firestore
+var myContext: Context? = null
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
