@@ -172,7 +172,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                         view.resources.getString(R.string.itinary_search_submit)
                 }
                 is SuccessJourneyState -> {
-                    carCo2Equivalent = state.search.context.carDirectPath.co2_emission
+                    carCo2Equivalent = state.search.context.car_direct_path.co2_emission
                     val action =
                         ItinarySearchFragmentDirections.actionItinarySearchFragmentToItinaryResultsFragment(
                             state.search

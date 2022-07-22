@@ -78,7 +78,7 @@ dependencies {
     /* END Firebase */
 
     //map
-    implementation 'com.google.android.gms:play-services-maps:20.0.0'
+//    implementation 'com.google.android.gms:play-services-maps:20.0.0'
 
     //json
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")

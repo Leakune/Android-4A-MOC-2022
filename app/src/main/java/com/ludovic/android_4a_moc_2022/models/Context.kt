@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 class Context(
     val timezone: String,
     val current_datetime: String,
-    val carDirectPath: CarDirectPath
+    val car_direct_path: CarDirectPath
 ) : Parcelable{
 }
