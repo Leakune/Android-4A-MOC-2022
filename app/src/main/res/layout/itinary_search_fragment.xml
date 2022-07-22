@@ -25,13 +25,28 @@
             android:text="@string/itinary_search_from"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/itinary_search_from"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="text"
-            android:inputType="textAutoComplete"
-            android:paddingVertical="10dp" />
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/itinary_search_from"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="text"
+                android:inputType="textAutoComplete"
+                android:paddingVertical="10dp" />
+            <Button
+                android:id="@+id/itinary_search_current_location"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_baseline_my_location_24">
+
+            </Button>
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

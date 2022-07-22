@@ -20,6 +20,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ludovic.android_4a_moc_2022.fragments.AuthenticationFragmentDirections
+import com.ludovic.android_4a_moc_2022.models.Co2Emission
 import com.ludovic.android_4a_moc_2022.models.Section
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.ceil
@@ -87,7 +88,7 @@ fun transportLogo(section: Section): TextView {
 }
 
 var r: Resources? = null
-
+var carCo2Equivalent: Co2Emission? = null
 val auth = Firebase.auth
 val db = Firebase.firestore
 var myContext: Context? = null

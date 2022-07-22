@@ -1,5 +1,6 @@
 package com.ludovic.android_4a_moc_2022.fragments
 
+import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,8 +16,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.ludovic.android_4a_moc_2022.API.*
 import com.ludovic.android_4a_moc_2022.R
+import com.ludovic.android_4a_moc_2022.carCo2Equivalent
+import com.ludovic.android_4a_moc_2022.models.Address
+import com.ludovic.android_4a_moc_2022.models.Coord
 import com.ludovic.android_4a_moc_2022.models.Place
 import kotlinx.android.synthetic.main.itinary_search_fragment.view.*
 import kotlinx.android.synthetic.main.place_item_cell.view.*
@@ -37,6 +43,9 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
 
     var departureDate: LocalDateTime = LocalDateTime.now()
     var forbiddenUris: MutableList<String> = mutableListOf()
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
 
     fun dateTimePickerSetup(view: View) {
         val itinarySearchDate = view.findViewById<Button>(R.id.itinary_search_date);
@@ -142,6 +151,8 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         val itinarySearchSubmit = view.findViewById<Button>(R.id.itinary_search_submit);
         val itinarySearchRecyclerViewLayout =
             itinarySearchRecyclerView.layoutParams as ConstraintLayout.LayoutParams
+        val itinarySearchCurrentLocation =
+            view.findViewById<Button>(R.id.itinary_search_current_location);
 
         dateTimePickerSetup(view)
         transportModePickerSetup(view)
@@ -161,6 +172,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                         view.resources.getString(R.string.itinary_search_submit)
                 }
                 is SuccessJourneyState -> {
+                    carCo2Equivalent = state.search.context.carDirectPath.co2_emission
                     val action =
                         ItinarySearchFragmentDirections.actionItinarySearchFragmentToItinaryResultsFragment(
                             state.search
@@ -219,6 +231,26 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
             }
         }
 
+        itinarySearchCurrentLocation.setOnClickListener {
+            Log.d("mytag", "salutt")
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener {
+                    Log.d("mytag", it.toString())
+                    from = Place(
+                        name = "Current location",
+                        Address(
+                            "Current location",
+                            Coord(it.latitude.toString(), it.longitude.toString())
+                        )
+                    )
+                    itinarySearchFrom.setText("Current location")
+                    // Got last known location. In some rare situations this can be null.
+                }.addOnFailureListener {
+                    Log.d("mytag", it.toString())
+                }
+
+        }
 
         itinarySearchFrom.addTextChangedListener(
             object : TextWatcher {
