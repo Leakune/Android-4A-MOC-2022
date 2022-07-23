@@ -18,7 +18,7 @@
 
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/date_score"
             android:layout_width="match_parent"
             android:textSize="16dp"
             android:textColor="@color/colorPrimary"
@@ -34,29 +34,28 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_gravity="end"
                 android:layout_width="100dp"
-                android:src="@drawable/cloud"
-                android:layout_height="60dp">
+                android:layout_height="60dp"
+                android:layout_gravity="end"
+                android:src="@drawable/cloud">
 
             </ImageView>
 
             <TextView
                 android:id="@+id/co2"
                 android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="20g"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
                 android:textSize="15dp"
-                android:gravity="center"
-                android:layout_height="match_parent">
+                android:textStyle="bold">
 
             </TextView>
         </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/ll_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -64,6 +63,7 @@
         android:paddingBottom="10dp">
 
         <TextView
+            android:id="@+id/ll_start_score"
             android:layout_width="match_parent"
             android:gravity="start"
             android:textSize="14dp"
@@ -84,7 +84,6 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <LinearLayout
-        android:id="@+id/ll_end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -92,6 +91,7 @@
         android:paddingTop="10dp">
 
         <TextView
+            android:id="@+id/ll_end_score"
             android:layout_width="match_parent"
             android:gravity="start"
             android:textSize="14dp"

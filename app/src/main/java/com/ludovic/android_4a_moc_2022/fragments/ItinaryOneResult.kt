@@ -94,11 +94,14 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
 
 
         OneResultChooseButton.setOnClickListener {
-            // AJOUTER carCo2Equivalent
+            journey.carCo2Equivalent = carCo2Equivalent
             db.collection("journeys")
                 .add(journey.serialize(auth.currentUser!!.uid))
                 .addOnSuccessListener { documentReference ->
-                    Log.d("Success add journey", "DocumentSnapshot added with ID: ${documentReference.id}")
+                    Log.d(
+                        "Success add journey",
+                        "DocumentSnapshot added with ID: ${documentReference.id}"
+                    )
                 }
                 .addOnFailureListener { e ->
                     Log.w("Error add journey", "Error adding document", e)
