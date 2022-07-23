@@ -23,16 +23,25 @@ class UserTripHistoryFragment : Fragment(R.layout.user_trip_history_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val progressLoader = view.findViewById<ProgressBar>(R.id.progress_loader_history)
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView_history)
         val textView = view.findViewById<TextView>(R.id.empty_history)
         val lottie = view.findViewById<LottieAnimationView>(R.id.empty_history_lottie)
 
         historyViewModel.fetchHistory.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is LoadingHistoryState, EmptyHistoryState, is ErrorHistoryState -> {
+                is LoadingHistoryState -> {
+                    textView.visibility = View.GONE
+                    lottie.visibility = View.GONE
+                    recyclerView.visibility = View.GONE
+                    progressLoader.visibility = View.VISIBLE
+                }
+                EmptyHistoryState, is ErrorHistoryState -> {
                     textView.visibility = View.VISIBLE
                     lottie.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
+                    progressLoader.visibility = View.GONE
                 }
                 is SuccessHistoryState -> {
                     textView.visibility = View.GONE

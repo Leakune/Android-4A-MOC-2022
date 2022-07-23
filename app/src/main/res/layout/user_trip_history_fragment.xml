@@ -23,6 +23,13 @@
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/history"
         app:lottie_loop="true" />
+    <ProgressBar
+        android:id="@+id/progress_loader_history"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_history"
