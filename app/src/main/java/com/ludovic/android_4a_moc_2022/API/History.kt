@@ -44,7 +44,7 @@ object HistoryRepository {
                         throw Exception(e)
                     }
                     // if we are here, we did not encounter an exception
-                    if (snapshot != null) {
+                    if (snapshot != null && !snapshot.isEmpty) {
                         val allJourneys: MutableList<Journey> = mutableListOf()
                         val documents = snapshot.documents
                         documents.forEach {

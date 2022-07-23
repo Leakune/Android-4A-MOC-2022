@@ -16,10 +16,11 @@ data class Journey(
     val durations: Durations,
     val sections: List<Section>,
     val co2_emission: Co2Emission,
+    var carCo2Equivalent: Co2Emission?,
     val nb_transfers: Int,
     val tags: List<String>,
 ) : Parcelable {
-    fun serialize(userId: String): HashMap<String, Any> {
+    fun serialize(userId: String): HashMap<String, Any?> {
         val sectionsObj = HashMap<String, Any>()
         sections.forEachIndexed { index, section ->
             val sectionObj: MutableMap<String, Any?> = mutableMapOf(
@@ -36,12 +37,13 @@ data class Journey(
             sectionsObj["$index"] = sectionObj
         }
 
-        val map = HashMap<String, Any>()
+        val map = HashMap<String, Any?>()
         map["arrival_date_time"] = arrival_date_time
         map["departure_date_time"] = departure_date_time
         map["durations"] = durations
         map["sections"] = sectionsObj
         map["co2_emission"] = co2_emission
+        map["carCo2Equivalent"] = carCo2Equivalent
         map["nb_transfers"] = nb_transfers
         map["tags"] = tags
         map["userId"] = userId
@@ -106,6 +108,7 @@ data class Journey(
             }
             val durations = map["durations"] as HashMap<String, Any>
             val co2EmissionObj = map["co2_emission"] as HashMap<String, Any>
+            val carCo2EquivalentObj = map["carCo2Equivalent"] as HashMap<String, Any>
             return Journey(
                 (map["arrival_date_time"] as Timestamp).toDate(),
                 (map["departure_date_time"] as Timestamp).toDate(),
@@ -116,6 +119,7 @@ data class Journey(
                 ),
                 sections,
                 Co2Emission((co2EmissionObj["value"] as Double).toFloat()),
+                Co2Emission((carCo2EquivalentObj["value"] as Double).toFloat()),
                 (map["nb_transfers"] as Long).toInt(),
                 map["tags"] as List<String>,
             )

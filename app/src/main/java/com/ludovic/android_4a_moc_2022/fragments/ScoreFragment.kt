@@ -4,56 +4,112 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
+import com.ludovic.android_4a_moc_2022.API.*
 import com.ludovic.android_4a_moc_2022.R
-import kotlinx.android.synthetic.main.history_item_cell.view.*
+import com.ludovic.android_4a_moc_2022.models.Journey
+import kotlinx.android.synthetic.main.score_fragment.*
 import kotlinx.android.synthetic.main.score_item_cell.view.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ScoreFragment : Fragment(R.layout.score_fragment){
-
-    val listScore = listOf("20", "30", "40")
-    //val listScore: List<String> = listOf<String>()
+class ScoreFragment : Fragment(R.layout.score_fragment) {
+    private val historyViewModel: HistoryViewModel by viewModels()
+    private val NUMBER_EXP_ACQUIRED_TO_LVL_UP: Float = 10000f
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val progressLoader = view.findViewById<ProgressBar>(R.id.progress_loader_score)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView_score);
-        val textView = view.findViewById<TextView>(R.id.empty_history);
-        val lottie = view.findViewById<LottieAnimationView>(R.id.empty_history_lottie);
+        val carCo2EquivalentTotalTxt =
+            view.findViewById<TextView>(R.id.score_car_co2_equivalent_total)
+        val co2EmissionTotalTxt = view.findViewById<TextView>(R.id.score_co2_emission_total)
 
-        if (listScore.isEmpty()){
-            textView.visibility =  View.VISIBLE
-            lottie.visibility =  View.VISIBLE
-            recyclerView.visibility =  View.GONE
-        }else{
-            textView.visibility =  View.GONE
-            lottie.visibility =  View.GONE
-            recyclerView.visibility =  View.VISIBLE
-        }
+        val currentLvlTxt = view.findViewById<TextView>(R.id.current_level)
+        val lvlPercentageTxt = view.findViewById<TextView>(R.id.level_percentage)
+        val progressBarLvl1Txt = view.findViewById<TextView>(R.id.progress_bar_level1_label)
+        val progressBarLvl2Txt = view.findViewById<TextView>(R.id.progress_bar_level2_label)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progress_bar)
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext());
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView_score)
+        val textView = view.findViewById<TextView>(R.id.empty_history)
+        val lottie = view.findViewById<LottieAnimationView>(R.id.empty_history_lottie)
+
+        historyViewModel.fetchHistory.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is LoadingHistoryState -> {
+                    textView.visibility = View.GONE
+                    lottie.visibility = View.GONE
+                    recyclerView.visibility = View.GONE
+                    progressLoader.visibility = View.VISIBLE
+                }
+                EmptyHistoryState, is ErrorHistoryState -> {
+                    textView.visibility = View.VISIBLE
+                    lottie.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                    progressLoader.visibility = View.GONE
+                }
+                is SuccessHistoryState -> {
+                    textView.visibility = View.GONE
+                    lottie.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                    progressLoader.visibility = View.GONE
+
+                    var carCo2EquivalentTotal = 0.0f
+                    var co2EmissionTotal = 0.0f
+
+                    state.history.value.forEach {
+                        if (it.carCo2Equivalent !== null) {
+                            carCo2EquivalentTotal += it.carCo2Equivalent!!.value
+                        }
+                        co2EmissionTotal += it.co2_emission.value
+                    }
+                    val sparedCo2Emission = carCo2EquivalentTotal - co2EmissionTotal
+
+                    val sparedCo2EmissionKg = roundOffDecimal(sparedCo2Emission / 1000)
+                    val carCo2EquivalentTotalKg = roundOffDecimal(carCo2EquivalentTotal / 1000)
+
+                    carCo2EquivalentTotalTxt.text = "+$carCo2EquivalentTotalKg"
+                    co2EmissionTotalTxt.text = "-$sparedCo2EmissionKg"
+
+                    val currentLvl = (co2EmissionTotal / NUMBER_EXP_ACQUIRED_TO_LVL_UP).toInt() + 1
+                    val currentExp = co2EmissionTotal % NUMBER_EXP_ACQUIRED_TO_LVL_UP
+                    val currentExpPercentage =
+                        (currentExp.toInt() * 100 / NUMBER_EXP_ACQUIRED_TO_LVL_UP).toInt()
+
+                    currentLvlTxt.text = "Niveau $currentLvl"
+                    lvlPercentageTxt.text = "$currentExpPercentage%"
+                    progressBarLvl1Txt.text = "Niveau $currentLvl"
+                    progressBarLvl2Txt.text = "Niveau ${currentLvl + 1}"
+                    progressBar.progress = currentExpPercentage
 
 
-        recyclerView.adapter = ScoreAdapter(
-            listScore,
-            ScoreAdapter.OnClickListener { score: String ->
-
-
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    recyclerView.adapter = ScoreAdapter(
+                        state.history.value,
+                    )
+                }
+                else -> {}
             }
-        )
+        }
     }
 
 }
 
 class ScoreAdapter(
-    private val score: List<String>,
-    private val onClickListener: OnClickListener
+    private val score: MutableList<Journey>,
 ) :
     RecyclerView.Adapter<ScoreViewHolder>() {
 
@@ -71,90 +127,38 @@ class ScoreAdapter(
         holder.updateItem(
             score = score[position]
         )
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(score[position])
-        }
     }
-
-    class OnClickListener(val clickListener: (score: String) -> Unit) {
-        fun onClick(score: String) = clickListener(score)
-    }
-
-
 
 }
 
-
+fun roundOffDecimal(value: Float): Float {
+    val df = DecimalFormat("#.##", DecimalFormatSymbols(Locale.ENGLISH))
+    df.roundingMode = RoundingMode.CEILING
+    return df.format(value).toFloat()
+}
 
 class ScoreViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
-    val co2Value: TextView = v.co2
-    /*val journeyCellTimeEnd: TextView = v.journeyCellTimeEnd
-    val journeyCellTransportsList: LinearLayout = v.journeyCellTransportsList
-    val journeyCellDuration: TextView = v.journeyCellDuration*/
+    private val co2Value: TextView = v.co2
+    private val journeyCellDate: TextView = v.date_score
+    private val journeyDeparturePlace: TextView = v.ll_start_score
+    private val journeyArrivalPlace: TextView = v.ll_end_score
 
-    lateinit var score: String
+    lateinit var score: Journey
 
-    init {
-
-    }
-
-    fun updateItem(score: String) {
+    fun updateItem(score: Journey) {
         this.score = score
 
-        /* val hours = journey.durations.total / 3600;
-         val minutes = (journey.durations.total % 3600) / 60;
-         val seconds = journey.durations.total % 60;*/
 
-        // val timeString = String.format("%02dh%02d", hours, minutes);
+        val co2EmissionKg = roundOffDecimal(score.co2_emission.value / 1000)
+        co2Value.text = co2EmissionKg.toString() + "kg"
 
-        //val format = SimpleDateFormat("HH:mm")
+        val formatDate = SimpleDateFormat("EEE dd MMMM yyyy")
+        journeyCellDate.text = formatDate.format(score.departure_date_time)
 
-        co2Value.text = score + "g"
-        // journeyCellTimeStart.text = format.format(journey.departure_date_time)
-        //journeyCellTimeEnd.text = format.format(journey.arrival_date_time)
+        journeyDeparturePlace.text = score.sections.first().from?.name ?: "-"
+        journeyArrivalPlace.text = score.sections.last().to?.name ?: "-"
 
-        /*var count = 0
-        for ( sec in journey.sections) {
-            if(count == 7){
-                break
-            }
-            when (sec.type) {
-                "public_transport" -> {
-                    count+=1
-                    val logo = transportLogo(sec)
-                    journeyCellTransportsList.addView(logo)
-
-                }
-                "street_network", "transfer" -> {
-                    count+=1
-                    val logo = ImageView(myContext)
-                    logo.setImageResource(R.drawable.ic_baseline_directions_walk_24)
-                    journeyCellTransportsList.addView(logo)
-                }
-                else -> {
-                    journeyCellTransportsList.removeView(
-                        journeyCellTransportsList.getChildAt(
-                            journeyCellTransportsList.childCount - 1
-                        )
-                    )
-                }
-            }
-            val chevron = TextView(myContext)
-            chevron.textSize = 15f
-            chevron.text = " > "
-            journeyCellTransportsList.addView(chevron)
-        }*/
-        /*journeyCellTransportsList.removeView(
-            journeyCellTransportsList.getChildAt(
-                journeyCellTransportsList.childCount - 1
-            )
-        )
-        if(count == 7) {
-            val logo = ImageView(myContext)
-            logo.setImageResource(R.drawable.ic_baseline_more_horiz_24)
-            journeyCellTransportsList.addView(logo)
-        }*/
     }
 
 }
