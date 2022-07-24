@@ -180,7 +180,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
             when (state) {
                 is LoadingJourneyState -> {
                     itinarySearchSubmit.isEnabled = false
-                    itinarySearchSubmit.text = "Loading"
+                    itinarySearchSubmit.text = getResources().getString(R.string.loading)
                 }
                 is EmptyJourneyState -> {
                     itinarySearchRecyclerView.visibility = View.GONE;
@@ -227,7 +227,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                         places = state.geocoding.places,
                         PlacesAdapter.OnClickListener { place: Place ->
                             clicked = true
-                            if (currentSearchBar == "from") {
+                            if (currentSearchBar == getResources().getString(R.string.itinary_search_from)) {
                                 itinarySearchFrom.setText(place.name)
                                 from = place
                             } else {
@@ -279,7 +279,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                         clicked = false
                         return
                     }
-                    currentSearchBar = "from"
+                    currentSearchBar = getResources().getString(R.string.itinary_search_from)
                     if (s.toString().isBlank()) {
                         itinarySearchRecyclerView.visibility = View.GONE;
                         itinarySearchRecyclerEmpty.visibility = View.VISIBLE
@@ -310,7 +310,7 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                         clicked = false
                         return
                     }
-                    currentSearchBar = "to"
+                    currentSearchBar = getResources().getString(R.string.itinary_search_to)
                     if (s.toString().isBlank()) {
                         itinarySearchRecyclerView.visibility = View.GONE;
                         itinarySearchRecyclerEmpty.visibility = View.VISIBLE

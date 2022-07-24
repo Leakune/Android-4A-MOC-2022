@@ -8,13 +8,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_background_shadow"
@@ -28,15 +28,16 @@
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
-                android:text="co2 non émis"
+                android:text="@string/co2notemitted"
                 android:textColor="@color/black"
-                android:textSize="16dp"></TextView>
+                android:textSize="16sp"></TextView>
 
             <TextView
                 android:id="@+id/score_car_co2_equivalent_total"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.6"
+                android:layout_weight="1.3"
+                android:layout_marginVertical="25dp"
                 android:paddingLeft="10dp"
                 android:text="+0.00"
                 android:textColor="#EA5757"
@@ -45,12 +46,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.8"
                 android:gravity="end"
                 android:paddingRight="10dp"
+                android:contentDescription="Kg"
                 android:text="KG"
-                android:textColor="#CBD9F7"
-                android:textSize="15dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
                 android:textStyle="bold"></TextView>
 
         </LinearLayout>
@@ -71,15 +73,16 @@
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
-                android:text="co2 émis"
+                android:text="@string/co2emitted"
                 android:textColor="@color/black"
-                android:textSize="16dp"></TextView>
+                android:textSize="16sp"></TextView>
 
             <TextView
                 android:id="@+id/score_co2_emission_total"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.6"
+                android:layout_marginVertical="25dp"
+                android:layout_weight="1.3"
                 android:paddingLeft="10dp"
                 android:text="-0.00"
                 android:textColor="#569C44"
@@ -88,12 +91,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.8"
                 android:gravity="end"
                 android:paddingRight="10dp"
+                android:contentDescription="Kg"
                 android:text="KG"
-                android:textColor="#CBD9F7"
-                android:textSize="15dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
                 android:textStyle="bold"></TextView>
 
         </LinearLayout>
@@ -114,9 +118,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Niveau -"
+            android:contentDescription="@string/level"
+            android:text="@string/level"
             android:textColor="@color/colorPrimary"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"></TextView>
 
 
@@ -127,7 +132,7 @@
             android:layout_weight="2"
             android:text="0%"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"></TextView>
 
     </LinearLayout>
@@ -154,9 +159,9 @@
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/carbon"
                 android:gravity="start"
-                android:text="Niveau -"
+                android:text="@string/level"
                 android:textColor="@color/colorPrimary"
-                android:textSize="11dp"
+                android:textSize="11sp"
                 android:textStyle="bold"></TextView>
 
         </LinearLayout>
@@ -174,9 +179,9 @@
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/lock"
                 android:gravity="end"
-                android:text="Niveau -"
+                android:text="@string/level"
                 android:textColor="@color/colorPrimary"
-                android:textSize="11dp"
+                android:textSize="11sp"
                 android:textStyle="bold"></TextView>
 
 

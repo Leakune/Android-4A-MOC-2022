@@ -16,7 +16,7 @@
 
     <!--  AUTHENTICATION VIEW  -->
     <string name="authentification_title">Page d\'authentification</string>
-    <string name="authentication_login">Login</string>
+    <string name="authentication_login">Identifiant</string>
     <string name="authentication_password">Mot de passe</string>
     <string name="authentication_confirm_password">Confirmer mot de passe</string>
     <string name="authentication_submit">Valider</string>
@@ -49,4 +49,13 @@
     <string name="now">Maintenant</string>
 
     <string name="close">Fermer</string>
+    <string name="tomorow">Auj</string>
+    <string name="loading">Chargement</string>
+
+
+    <!--  score VIEW  -->
+    <string name="co2emitted">co2 émis</string>
+    <string name="co2notemitted">co2 non émis</string>
+    <string name="level">Niveau</string>
+
 </resources>

@@ -89,10 +89,10 @@ class ScoreFragment : Fragment(R.layout.score_fragment) {
                     val currentExpPercentage =
                         (currentExp.toInt() * 100 / NUMBER_EXP_ACQUIRED_TO_LVL_UP).toInt()
 
-                    currentLvlTxt.text = "Niveau $currentLvl"
+                    currentLvlTxt.text =  getResources().getString(R.string.level) + " $currentLvl"
                     lvlPercentageTxt.text = "$currentExpPercentage%"
-                    progressBarLvl1Txt.text = "Niveau $currentLvl"
-                    progressBarLvl2Txt.text = "Niveau ${currentLvl + 1}"
+                    progressBarLvl1Txt.text = getResources().getString(R.string.level) + " $currentLvl"
+                    progressBarLvl2Txt.text = getResources().getString(R.string.level) +" ${currentLvl + 1}"
                     progressBar.progress = currentExpPercentage
 
 

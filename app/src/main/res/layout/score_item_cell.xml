@@ -20,7 +20,7 @@
         <TextView
             android:id="@+id/date_score"
             android:layout_width="match_parent"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 android:gravity="center"
                 android:text="20g"
                 android:textColor="@color/colorPrimary"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold">
 
             </TextView>
@@ -66,7 +66,7 @@
             android:id="@+id/ll_start_score"
             android:layout_width="match_parent"
             android:gravity="start"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:paddingLeft="15dp"
             android:textColor="@color/black"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
             android:id="@+id/ll_end_score"
             android:layout_width="match_parent"
             android:gravity="start"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:paddingLeft="15dp"
             android:textColor="@color/black"
             android:layout_height="wrap_content"

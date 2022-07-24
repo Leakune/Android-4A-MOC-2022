@@ -38,16 +38,24 @@
     <string name="itinary_oneresult_transfers">Transferencias </string>
 
 
-    <string name="itinary_search_no_journey">No results for this search</string>
+    <string name="itinary_search_no_journey">No hay resultados para esta búsqueda</string>
 
-    <string name="duration">Duration</string>
-    <string name="walk">Marche</string>
-    <string name="wait">Wait in station</string>
-    <string name="toward">Toward</string>
+    <string name="duration">Duración</string>
+    <string name="walk">caminar</string>
+    <string name="wait">esperando en la estación</string>
+    <string name="toward">Hacia</string>
 
-    <string name="set">Set</string>
-    <string name="now">Now</string>
+    <string name="set">Validar</string>
+    <string name="now">Ahora</string>
 
-    <string name="close">Close</string>
+    <string name="close">Cerca</string>
+    <string name="tomorow">Est</string>
+    <string name="loading">Cargo</string>
+
+
+    <!--  score VIEW  -->
+    <string name="co2emitted">co2 emitido</string>
+    <string name="co2notemitted">Co2 no emitida</string>
+    <string name="level">nivel</string>
 
 </resources>

@@ -47,7 +47,7 @@
                 android:background="@drawable/background_circle"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Auj"
+                android:text="@string/tomorow"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold">
@@ -193,7 +193,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"
                 android:paddingTop="0dp"
-                android:text="Valider" />
+                android:text="@string/set" />
         </LinearLayout>
 
     </LinearLayout>
