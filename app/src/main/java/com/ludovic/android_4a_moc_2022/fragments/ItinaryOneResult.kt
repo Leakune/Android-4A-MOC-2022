@@ -102,6 +102,8 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
                         "Success add journey",
                         "DocumentSnapshot added with ID: ${documentReference.id}"
                     )
+                    standardBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                    mMap.animateCamera( CameraUpdateFactory.zoomTo( 12.0f ) )
                 }
                 .addOnFailureListener { e ->
                     Log.w("Error add journey", "Error adding document", e)
