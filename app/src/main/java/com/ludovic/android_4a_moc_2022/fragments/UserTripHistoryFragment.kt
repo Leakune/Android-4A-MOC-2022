@@ -47,7 +47,8 @@ class UserTripHistoryFragment : Fragment(R.layout.user_trip_history_fragment) {
                     textView.visibility = View.GONE
                     lottie.visibility = View.GONE
                     recyclerView.visibility = View.VISIBLE
-
+                    progressLoader.visibility = View.GONE
+                    
                     recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
                     recyclerView.adapter = HistoryAdapter(
