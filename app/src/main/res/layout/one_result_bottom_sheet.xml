@@ -47,7 +47,7 @@
                 android:background="@drawable/background_circle"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/tomorow"
+                android:text="@string/today"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold">
