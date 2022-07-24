@@ -103,4 +103,5 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.5.0'
 
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+    implementation 'pub.devrel:easypermissions:3.0.0'
 }

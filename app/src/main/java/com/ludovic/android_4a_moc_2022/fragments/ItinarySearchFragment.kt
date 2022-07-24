@@ -1,6 +1,6 @@
 package com.ludovic.android_4a_moc_2022.fragments
 
-import android.location.Location
+import android.Manifest
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -26,6 +27,8 @@ import com.ludovic.android_4a_moc_2022.models.Coord
 import com.ludovic.android_4a_moc_2022.models.Place
 import kotlinx.android.synthetic.main.itinary_search_fragment.view.*
 import kotlinx.android.synthetic.main.place_item_cell.view.*
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -133,11 +136,26 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
                 Log.d("mytag", forbiddenUris.toString())
             }
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                    // Precise location access granted.
+                }
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    // Only approximate location access granted.
+                } else -> {
+                // No location access granted.
+            }
+            }
+        }
+
 
         view.placeList.layoutManager = LinearLayoutManager(requireContext())
 
@@ -232,7 +250,9 @@ class ItinarySearchFragment : Fragment(R.layout.itinary_search_fragment) {
         }
 
         itinarySearchCurrentLocation.setOnClickListener {
-            Log.d("mytag", "salutt")
+            locationPermissionRequest.launch(arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION))
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
             fusedLocationClient.lastLocation
                 .addOnSuccessListener {
