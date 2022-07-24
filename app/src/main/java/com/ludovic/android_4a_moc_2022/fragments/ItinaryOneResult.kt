@@ -94,6 +94,7 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
 
 
         OneResultChooseButton.setOnClickListener {
+            standardBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             journey.carCo2Equivalent = carCo2Equivalent
             db.collection("journeys")
                 .add(journey.serialize(auth.currentUser!!.uid))
