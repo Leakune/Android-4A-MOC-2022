@@ -1,5 +1,6 @@
 package com.ludovic.android_4a_moc_2022.fragments
 
+import android.Manifest
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -22,11 +23,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ludovic.android_4a_moc_2022.*
-import com.ludovic.android_4a_moc_2022.models.Journey
-import com.ludovic.android_4a_moc_2022.models.Section
 import kotlinx.android.synthetic.main.one_result_bottom_sheet.view.*
 import kotlinx.android.synthetic.main.one_result_item_cell.view.*
 import java.text.SimpleDateFormat
+import android.content.Context.LOCATION_SERVICE
+
+import androidx.core.content.ContextCompat.getSystemService
+
+import android.location.LocationManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.ludovic.android_4a_moc_2022.models.*
 
 
 var mainActivity: MainActivity? = null
@@ -59,6 +66,7 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
         view.oneResultSectionList.layoutManager = LinearLayoutManager(requireContext())
 
         val bottomSheet = view.findViewById<LinearLayout>(R.id.oneResultBottomsheet)
+        lateinit var fusedLocationClient: FusedLocationProviderClient
 
         val oneResultJourneyDate = view.findViewById<TextView>(R.id.oneResultJourneyDate)
         val oneResultStartPlace = view.findViewById<TextView>(R.id.oneResultStartPlace)
@@ -103,8 +111,15 @@ class ItinaryOneResultFragment : Fragment(R.layout.itinary_one_result), OnMapRea
                         "Success add journey",
                         "DocumentSnapshot added with ID: ${documentReference.id}"
                     )
+                    fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+                    fusedLocationClient.lastLocation
+                        .addOnSuccessListener {
+                            mMap.animateCamera( CameraUpdateFactory.newLatLngZoom( LatLng(it.latitude, it.longitude),12.0f ) )
+
+                        }.addOnFailureListener {
+                            Log.d("mytag", it.toString())
+                        }
                     standardBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                    mMap.animateCamera( CameraUpdateFactory.zoomTo( 12.0f ) )
                 }
                 .addOnFailureListener { e ->
                     Log.w("Error add journey", "Error adding document", e)
